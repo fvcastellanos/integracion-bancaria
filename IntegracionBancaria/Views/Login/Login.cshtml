@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Iniciar Sesion";
+
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-offset-4 col-md-4">
+        <div class="row">
+            <div class="col-md-12" style="background: #D9EDF7; padding: 1em;">
+
+                <form>
+                    <div class="form-group">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" id="password" placeholder="Contraseña">
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value="Ingresar" />
+                    <p>
+                        </br>
+                        ¿No tiene usuario?&nbsp;<a href="#">Registrese</a>
+                    </p>
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

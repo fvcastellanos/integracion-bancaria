@@ -1,0 +1,33 @@
+@{
+    @model System.Collections.Generic.List<IntegracionBancaria.Model.TipoCambio>
+    ViewData["Title"] = "Tipo de Cambio";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Tipo de cambio del quetzal con respecto a las monedas extranjeras:</p>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-6">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Moneda</th>
+                    <th>Compra</th>
+                    <th>Venta</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var tipoCambio in Model)
+                {
+                <tr>
+                    <td>@tipoCambio.Nombre</td>
+                    <td>@tipoCambio.ValorCompra</td>
+                    <td>@tipoCambio.ValorVenta</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+     </div>
+</div>
+
