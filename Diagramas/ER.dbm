@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,0" last-zoom="1"
+	 default-schema="bancos" default-owner="postgres">
+<role name="bancos"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="postgres" encoding="UTF8" lc-collate="English_United States" lc-ctype="English_United States">
+	<role name="bancos"/>
+	<tablespace name="pg_default"/>
+	<comment><![CDATA[default administrative connection database]]></comment>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="bancos" rect-visible="true" fill-color="#83af1f">
+	<role name="bancos"/>
+</schema>
+
+<sequence name="banco_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="banco">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="140" y="108"/>
+	<column name="id" not-null="true" sequence="bancos.banco_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="activo" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<constraint name="banco_pk" type="pk-constr" table="bancos.banco">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="banco_codigo_uq" type="uq-constr" table="bancos.banco">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="configuracion_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="configuracion">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="923" y="308"/>
+	<column name="id" sequence="bancos.configuracion_seq">
+		<type name="bigint"/>
+	</column>
+</table>
+
+</dbmodel>
