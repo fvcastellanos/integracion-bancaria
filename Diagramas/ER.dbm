@@ -36,7 +36,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="banco">
 	<schema name="bancos"/>
 	<role name="bancos"/>
-	<position x="180" y="88"/>
+	<position x="180" y="80"/>
 	<column name="id" not-null="true" sequence="bancos.banco_seq">
 		<type name="bigint"/>
 	</column>
@@ -215,12 +215,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="bancos"/>
 	<role name="bancos"/>
 	<position x="700" y="220"/>
-	<column name="id" sequence="bancos.usuario_banco_seq">
+	<column name="id" not-null="true" sequence="bancos.usuario_banco_seq">
 		<type name="bigint"/>
 	</column>
 	<column name="autorizacion" not-null="true">
 		<type name="varchar" length="150"/>
 	</column>
+	<constraint name="usuario_banco_pk" type="pk-constr" table="bancos.usuario_banco">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
 		<object name="banco_id" index="1"/>
@@ -228,8 +231,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="banco_fk" index="0"/>
-		<object name="usuario_fk" index="1"/>
+		<object name="banco_fk" index="1"/>
+		<object name="usuario_fk" index="2"/>
 	</customidxs>
 </table>
 
@@ -267,7 +270,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="bancos"/>
 	<role name="bancos"/>
 	<position x="560" y="400"/>
-	<column name="id" sequence="bancos.transaccion_seq">
+	<column name="id" not-null="true" sequence="bancos.transaccion_seq">
 		<type name="bigint"/>
 	</column>
 	<column name="fecha" not-null="true" default-value="CURRENT_TIMESTAMP">
@@ -276,9 +279,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="monto">
 		<type name="double precision"/>
 	</column>
+	<column name="descripcion">
+		<type name="text"/>
+	</column>
 	<column name="autorizacion" not-null="true">
 		<type name="varchar" length="150"/>
 	</column>
+	<constraint name="transaccion_pk" type="pk-constr" table="bancos.transaccion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
 		<object name="banco_id" index="3"/>
@@ -287,9 +296,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="banco_fk" index="2"/>
-		<object name="operacion_fk" index="0"/>
-		<object name="usuario_fk" index="1"/>
+		<object name="banco_fk" index="3"/>
+		<object name="operacion_fk" index="1"/>
+		<object name="usuario_fk" index="2"/>
 	</customidxs>
 </table>
 
