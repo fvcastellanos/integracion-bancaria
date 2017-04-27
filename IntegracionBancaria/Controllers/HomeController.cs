@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IntegracionBancaria.Model;
+using IntegracionBancaria.Model.Views;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegracionBancaria.Controllers
@@ -43,10 +44,21 @@ namespace IntegracionBancaria.Controllers
 
         public IActionResult Contacto()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ObtenerComentario(Comentario comentario)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View("Contacto", comentario);
+        }
+
 
         public IActionResult Error()
         {
