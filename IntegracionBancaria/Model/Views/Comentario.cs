@@ -14,6 +14,7 @@ namespace IntegracionBancaria.Model.Views
         public string Correo { get; set; }
 
         [Required]
+        [StringLength(255)]
         public string Texto { get; set; }
     }
 }

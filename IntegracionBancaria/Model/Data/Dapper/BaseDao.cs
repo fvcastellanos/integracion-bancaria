@@ -1,4 +1,11 @@
 
+using System.Data;
+using System.Linq;
+using Npgsql;
+using Dapper;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
 namespace IntegracionBancaria.Model.Data.Dapper
 {
     public abstract class BaseDao
@@ -7,21 +14,21 @@ namespace IntegracionBancaria.Model.Data.Dapper
 
             protected AppSettings Settings { get; }
 
-            protected ILogger Logger; 
+            protected readonly ILogger _logger; 
             protected BaseDao(IOptions<AppSettings> appSettings, ILogger logger)
             {
                 Settings = appSettings.Value;
-                Logger = logger;
+                _logger = logger;
             }
             
             protected IDbConnection GetConnection()
             {
-                Logger.LogInformation("Getting DB connection");
-                return new MySqlConnection(Settings.ConnectionString);
+                _logger.LogInformation("Getting DB connection");
+                return new NpgsqlConnection(Settings.ConnectionString);
             }
 
             protected long GetLasInsertedId() {
-                Logger.LogInformation("Getting last inserted Id");
+                _logger.LogInformation("Getting last inserted Id");
                 return GetConnection().Query<long>(LastInsertId).Single();
             }
     }
