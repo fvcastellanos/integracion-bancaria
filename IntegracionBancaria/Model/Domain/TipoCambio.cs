@@ -1,5 +1,5 @@
 
-namespace IntegracionBancaria.Model
+namespace IntegracionBancaria.Model.Domain
 {
     public class TipoCambio
     {

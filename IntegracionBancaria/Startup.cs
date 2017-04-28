@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IntegracionBancaria.Model;
+using IntegracionBancaria.Model.Data.Dapper;
+using IntegracionBancaria.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,7 +31,17 @@ namespace IntegracionBancaria
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.AddLogging();
+            services.AddOptions();
             services.AddMvc();
+
+            services.Configure<AppSettings>(x => Configuration.GetSection("AppSettings").Bind(x));
+
+            // Daos
+            services.AddSingleton<ComentarioDao, ComentarioDao>();
+
+            // Servicios
+            services.AddSingleton<ServicioComentario, ServicioComentario>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

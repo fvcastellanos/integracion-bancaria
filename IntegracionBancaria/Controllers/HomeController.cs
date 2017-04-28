@@ -3,12 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IntegracionBancaria.Model;
+using IntegracionBancaria.Model.Domain;
+using IntegracionBancaria.Model.Views;
+using IntegracionBancaria.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegracionBancaria.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ServicioComentario _servicioComentario;
+
+        public HomeController(ServicioComentario servicioComentario)
+        {
+            _servicioComentario = servicioComentario;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -43,10 +53,29 @@ namespace IntegracionBancaria.Controllers
 
         public IActionResult Contacto()
         {
-            ViewData["Message"] = "Your contact page.";
-
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ObtenerComentario(Comentario comentario)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _servicioComentario.GuardarComentario(comentario.Nombre, "ip", 
+                    comentario.Correo, comentario.Texto);
+                
+                if (result.IsSuccess()) 
+                {
+                    return View("ContactoConfirmacion", comentario);
+                }
+
+                ViewData["error"] = result.GetFailure().Message;
+            }
+
+            return View("Contacto", comentario);
+        }
+
 
         public IActionResult Error()
         {
