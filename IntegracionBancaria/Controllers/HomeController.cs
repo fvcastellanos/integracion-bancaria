@@ -70,7 +70,9 @@ namespace IntegracionBancaria.Controllers
                     return View("ContactoConfirmacion", comentario);
                 }
 
-                ViewData["error"] = result.GetFailure().Message;
+                ModelState.AddModelError("Application Error", result.GetFailure().Message);
+
+                // ViewData["error"] = result.GetFailure().Message;
             }
 
             return View("Contacto", comentario);
