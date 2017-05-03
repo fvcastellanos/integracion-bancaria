@@ -9,5 +9,12 @@ namespace IntegracionBancaria.Controllers
         {
             return View();
         }
+
+        public IActionResult Registro()
+        {
+            
+
+            return View();
+        }
     }
 }

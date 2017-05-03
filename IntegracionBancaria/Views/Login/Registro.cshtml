@@ -1,0 +1,54 @@
+@model IntegracionBancaria.Model.Views.Registro
+
+@{
+    ViewData["Title"] = "Registro de Usuarios";
+}
+<h2>@ViewData["Title"]</h2>
+
+<p>Por favor ingrese la siguiente información para obtener acceso a la plataforma:</p>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-6">
+
+        @using (Html.BeginForm("ObtenerComentario", "Home", FormMethod.Post, new { @class = "contacto" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="banco">Banco</label>
+                @Html.DropDownListFor(model => model.BandoId, new { @class = "form-control", @id = "banco" })
+                @Html.ValidationMessageFor(model => model.BancoId, String.Empty,  new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                @Html.TextBoxFor(model => model.Usuario, new { @class = "form-control", @placeholder = "Usuario", @id = "usuario" })
+                @Html.ValidationMessageFor(model => model.Usuario, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="clave">Contraseña</label>
+                @Html.PasswordFor(model => model.Clave, new { @class = "form-control", @id = "clave" })
+                @Html.ValidationMessageFor(model => model.Clave, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="clave2">Confirmar Contraseña</label>
+                @Html.PasswordFor(model => model.ConfirmacionClave, new { @class = "form-control", @id = "clave2" })
+                @Html.ValidationMessageFor(model => model.ConfirmacionClave, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <span class="text-danger">@Html.ValidationSummary()</span>
+            <input type="submit" class="btn btn-primary" value="Enviar" />
+
+        }
+    </div>
+</div>
+
+@section CustomCss
+{
+    <style>
+        .contacto > .form-group > input, textarea {
+            max-width: 100%;
+        }
+    </style>
+}
