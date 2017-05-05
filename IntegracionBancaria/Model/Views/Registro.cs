@@ -19,5 +19,18 @@ namespace IntegracionBancaria.Model.Views
         [Required]
         [StringLength(150)]
         public string ConfirmacionClave { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string Nombres { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string Apellidos { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(255)]
+        public string Correo { get; set; }
     }
 }

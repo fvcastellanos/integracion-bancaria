@@ -1,4 +1,4 @@
-@model IntegracionBancaria.Model.Views.Registro
+@model IntegracionBancaria.Model.Views.RegistroViewModel
 
 @{
     ViewData["Title"] = "Registro de Usuarios";
@@ -16,29 +16,50 @@
 
             <div class="form-group">
                 <label for="banco">Banco</label>
-                @Html.DropDownListFor(model => model.BandoId, new { @class = "form-control", @id = "banco" })
-                @Html.ValidationMessageFor(model => model.BancoId, String.Empty,  new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Registro.BancoId, Model.Bancos, new { @class = "form-control", @id = "banco" })
+                @Html.ValidationMessageFor(model => model.Registro.BancoId, String.Empty,  new { @class = "text-danger" })
             </div>
+
+            <div class="form-group">
+                <label for="nombres">Nombres</label>
+                @Html.TextBoxFor(model => model.Registro.Nombres, new { @class = "form-control", @placeholder = "Nombres", @id = "nombres" })
+                @Html.ValidationMessageFor(model => model.Registro.Nombres, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="apellidos">Nombres</label>
+                @Html.TextBoxFor(model => model.Registro.Apellidos, new { @class = "form-control", @placeholder = "Apellidos", @id = "apellidos" })
+                @Html.ValidationMessageFor(model => model.Registro.Apellidos, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                @Html.TextBoxFor(model => model.Registro.Correo, new { @class = "form-control", @placeholder = "Correo Electrónico", @id = "correo" })
+                @Html.ValidationMessageFor(model => model.Registro.Correo, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+
             <div class="form-group">
                 <label for="usuario">Usuario</label>
-                @Html.TextBoxFor(model => model.Usuario, new { @class = "form-control", @placeholder = "Usuario", @id = "usuario" })
-                @Html.ValidationMessageFor(model => model.Usuario, String.Empty,  new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model.Registro.Usuario, new { @class = "form-control", @placeholder = "Usuario", @id = "usuario" })
+                @Html.ValidationMessageFor(model => model.Registro.Usuario, String.Empty,  new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 <label for="clave">Contraseña</label>
-                @Html.PasswordFor(model => model.Clave, new { @class = "form-control", @id = "clave" })
-                @Html.ValidationMessageFor(model => model.Clave, String.Empty,  new { @class = "text-danger" })
+                @Html.PasswordFor(model => model.Registro.Clave, new { @class = "form-control", @id = "clave" })
+                @Html.ValidationMessageFor(model => model.Registro.Clave, String.Empty,  new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 <label for="clave2">Confirmar Contraseña</label>
-                @Html.PasswordFor(model => model.ConfirmacionClave, new { @class = "form-control", @id = "clave2" })
-                @Html.ValidationMessageFor(model => model.ConfirmacionClave, String.Empty,  new { @class = "text-danger" })
+                @Html.PasswordFor(model => model.Registro.ConfirmacionClave, new { @class = "form-control", @id = "clave2" })
+                @Html.ValidationMessageFor(model => model.Registro.ConfirmacionClave, String.Empty,  new { @class = "text-danger" })
             </div>
 
             <span class="text-danger">@Html.ValidationSummary()</span>
-            <input type="submit" class="btn btn-primary" value="Enviar" />
+            <input type="submit" class="btn btn-primary" value="Enviar registro" />
+            <a class="btn" asp-controller="Login" asp-action="Login">Regresar</a>
 
         }
     </div>
