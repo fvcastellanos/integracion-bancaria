@@ -10,7 +10,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
 {
     public class BancoDao : BaseDao
     {
-        public BancoDao(IOptions<AppSettings> appSettings, ILogger logger) : base(appSettings, logger)
+        public BancoDao(IOptions<AppSettings> appSettings, ILogger<BancoDao> logger) : base(appSettings, logger)
         {
         }
 

@@ -5,7 +5,7 @@ namespace IntegracionBancaria.Model.Views
 {
     public class RegistroViewModel
     {
-        public List<SelectListItem> Bancos { get; set; }
+        public IEnumerable<SelectListItem> Bancos { get; set; }
         public Registro Registro { get; set; }
     }
 }
