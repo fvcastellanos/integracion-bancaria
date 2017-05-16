@@ -32,10 +32,14 @@ namespace IntegracionBancaria.Controllers
 
         public IActionResult Registrarse(RegistroViewModel registroViewModel)
         {
+            registroViewModel.Bancos = ObtenerListadoBancos();
+
             if (ModelState.IsValid)
             {
 
             }
+
+
 
             return View("Registro", registroViewModel);
         }
