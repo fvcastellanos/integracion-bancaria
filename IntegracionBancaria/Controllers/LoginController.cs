@@ -6,6 +6,7 @@ using IntegracionBancaria.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
+using System.Collections;
 
 namespace IntegracionBancaria.Controllers
 {
@@ -39,27 +40,31 @@ namespace IntegracionBancaria.Controllers
             return View("Registro", registroViewModel);
         }
 
-        private IEnumerable<SelectListItem> ObtenerListadoBancos()
+        private SelectList ObtenerListadoBancos()
         {
             var obtenerBancosResult = _servicioBanco.ObtenerBancosActivos();
-            IEnumerable<SelectListItem> items = CrearListaVacia();
+            var items = CrearListaVacia();
 
             if (obtenerBancosResult.IsSuccess())
             {
                 var bancos = obtenerBancosResult.GetPayload();
-                items = bancos.Select(banco => new SelectListItem() {  Text = banco.Nombre, Value = banco.Id.ToString() });
+                items = CrearListaBancos(bancos);
             }
             
             return items;
         }
 
-        private IEnumerable<SelectListItem> CrearListaVacia()
-        {
-            var item = new SelectListItem() { Text = "Sin valor", Value = "0" };
-            var lista = new List<SelectListItem>();
-            lista.Add(item);
+        private SelectList CrearListaBancos(IEnumerable lista) {
+            return new SelectList(lista, "Id", "Nombre");
+        }
 
-            return lista;           
+        private SelectList CrearListaVacia()
+        {
+            var banco = new Banco() { Id = 0, Nombre = "Sin Valor" };
+            var lista = new List<Banco>();
+            lista.Add(banco);
+
+            return CrearListaBancos(lista);
         }
     }
 }
