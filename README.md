@@ -49,3 +49,12 @@ Luego de configurada la base de datos ya es posible ejecutar las migraciones, pa
 ```./migrate.sh``` para ejecutar las migraciones
 ```./clean.sh``` para limpiar la base de datos
 
+### Ambiente de desarrollo
+
+El proyecto esta hecho usando el [.NET Core version 1.1](https://www.microsoft.com/net/download/core) el cual es multiplataforma (Windows, OSX, Linux). Para instalarlo pueden seguir las instrucciones del sitio oficial.
+
+IDEs de Desarrollo recomendados:
+
+* [Visual Studio Code](https://code.visualstudio.com/) (multiplataforma)
+* [Visual Studio 2017](https://www.visualstudio.com/thank-you-downloading-visual-studio/?sku=Community&rel=15)
+* [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/)
