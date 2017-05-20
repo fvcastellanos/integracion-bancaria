@@ -31,5 +31,12 @@ namespace IntegracionBancaria.Model.Data.Dapper
                 _logger.LogInformation("Getting last inserted Id");
                 return GetConnection().Query<long>(LastInsertId).Single();
             }
+
+            protected long GetNexSequenceNumber(IDbConnection db, string sequenceName)
+            {
+                var nextSequenceSql = "select nextval(@SequenceName)";
+                _logger.LogInformation("Getting next sequence value of: {0}", sequenceName);
+                return db.Query<long>(nextSequenceSql, new { SequenceName = sequenceName }).Single();
+            }
     }
 }
