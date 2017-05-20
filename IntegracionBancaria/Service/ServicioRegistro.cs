@@ -20,21 +20,46 @@ namespace IntegracionBancaria.Service
             _usuarioDao = usuarioDao;
         }
 
-        public Result<Exception, Perfil> RegistrarUsuario(RegistroViewModel registroViewModel)
+        public Result<string, Perfil> RegistrarUsuario(RegistroViewModel registroViewModel)
         {
             try
             {
                 var registro = registroViewModel.Registro;
+
                 _logger.LogInformation("Registranto usuario: {0}", registro.Nombres);
+
+                if(UsuarioExistente(registro.Usuario, _usuarioDao))
+                {
+                    return Result<string, Perfil>.ForFailure("Usuario existente");
+                }
+
                 // Creando usuario
-                var usuarioId = CrearUsuario(registro, _usuarioDao);
+                var usuario = CrearUsuario(registro, _usuarioDao);
+                var perfil = CrearPerfil(usuario, registro, _perfilDao);
+
+                _usuarioDao.AsociarBancoUsuario(registro.BancoId, usuario.Id, "demo-demo");
+
+                return Result<string, Perfil>.ForSuccess(perfil);
             }
             catch (Exception ex)
             {
-                return Result<Exception, Perfil>.ForFailure(ex);
+                return Result<string, Perfil>.ForFailure(ex.Message);
             }
-            
-            return null;
+        }
+
+        private bool UsuarioExistente(string usr, UsuarioDao usuarioDao)
+        {
+            var usuario = usuarioDao.BuscarPorUsuario(usr);
+            _logger.LogInformation("Verificando existencia del usuario: {0}", usr);
+
+            if (usuario != null)
+            {
+                _logger.LogInformation("Usuario: {0}, ya existe", usr);
+                return true;
+            }
+
+            _logger.LogInformation("Usuario {0}, inexistente");
+            return false;
         }
 
         private Usuario ConstruirUsuario(Registro registro)
@@ -49,20 +74,22 @@ namespace IntegracionBancaria.Service
             return perfil;
         }
 
-        private long CrearUsuario(Registro registro, UsuarioDao usuarioDao)
+        private Usuario CrearUsuario(Registro registro, UsuarioDao usuarioDao)
         {
             var usuario = ConstruirUsuario(registro);
             var usuarioId = usuarioDao.CrearUsuario(usuario);
+            var usuarioCreado = usuarioDao.BuscarPorId(usuarioId);
 
-            return usuarioId;
+            return usuarioCreado;
         }
 
-        private long CrearPerfil(long usuarioId, Registro registro, PerfilDao perfilDao)
+        private Perfil CrearPerfil(Usuario usuario, Registro registro, PerfilDao perfilDao)
         {
-            var perfil = ConstruirPerfil(usuarioId, registro);
+            var perfil = ConstruirPerfil(usuario.Id, registro);
             var perfilId = perfilDao.GuardarPerfil(perfil);
+            var perfilCreado = perfilDao.BuscarPorId(perfilId);
 
-            return perfilId;
+            return perfilCreado;
         }
     }
 }

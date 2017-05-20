@@ -10,16 +10,17 @@ namespace IntegracionBancaria.Controllers
 {
     public class RegistroController : Controller
     {
-        private ServicioBanco _servicioBanco;
+        private readonly ServicioBanco _servicioBanco;
+        private readonly ServicioRegistro _servicioRegistro;
 
-        public RegistroController(ServicioBanco servicioBanco)
+        public RegistroController(ServicioBanco servicioBanco, ServicioRegistro servicioRegistro)
         {
             _servicioBanco = servicioBanco;
+            _servicioRegistro = servicioRegistro;
         }
 
-        public IActionResult Registro()
+        public IActionResult Index()
         {
-            
             var registroViewModel = new RegistroViewModel() { Bancos = ObtenerListadoBancos() };
             return View(registroViewModel);
         }
@@ -30,10 +31,17 @@ namespace IntegracionBancaria.Controllers
 
             if (ModelState.IsValid)
             {
+                var result = _servicioRegistro.RegistrarUsuario(registroViewModel);
+                
+                if(result.IsSuccess())
+                {
+                    return View("Bienvenido", result.GetPayload());
+                }
 
+                 ModelState.AddModelError("Application Error", result.GetFailure());
             }
 
-            return View("Registro", registroViewModel);
+            return View("Index", registroViewModel);
         }
 
         private SelectList ObtenerListadoBancos()

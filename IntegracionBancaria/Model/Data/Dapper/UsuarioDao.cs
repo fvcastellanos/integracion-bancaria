@@ -19,7 +19,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
             using (IDbConnection db = GetConnection())
             {
                 var sql = "insert into usuario (id, usuario, clave, activo) values " +
-                    "(@Id, @Usuario, @Clave, 'S')";
+                    "(@Id, @Usuario, @Clave, true)";
 
                 id = GetNexSequenceNumber(db, "bancos.usuario_seq");
                 db.Execute(sql, new { Id = id, Usuario = usuario.Usr, Clave = usuario.Clave });
@@ -42,6 +42,34 @@ namespace IntegracionBancaria.Model.Data.Dapper
             }
 
             return id;
+        }
+
+        public Usuario BuscarPorId(long id)
+        {
+            Usuario usuario = null;
+            
+            using (IDbConnection db = GetConnection())
+            {
+                var sql = "select * from bancos.usuario where id = @Id";
+
+                usuario = db.QuerySingle<Usuario>(sql, new { Id = id });
+            }
+
+            return usuario;
+        }
+
+        public Usuario BuscarPorUsuario(string usr)
+        {
+            Usuario usuario = null;
+
+            using (IDbConnection db = GetConnection())
+            {
+                var sql = "select * from bancos.usuario where usuario = @Usuario";
+
+                usuario = db.QuerySingle<Usuario>(sql, new { Usuario = usr });
+            }
+
+            return usuario;
         }
 
     }

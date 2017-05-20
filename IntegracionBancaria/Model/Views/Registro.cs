@@ -13,11 +13,12 @@ namespace IntegracionBancaria.Model.Views
         public string Usuario { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(50)]
         public string Clave { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [StringLength(50)]
+        [Compare("Clave")]
         public string ConfirmacionClave { get; set; }
 
         [Required]

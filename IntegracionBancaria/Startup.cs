@@ -40,10 +40,13 @@ namespace IntegracionBancaria
             // Daos
             services.AddSingleton<ComentarioDao, ComentarioDao>();
             services.AddSingleton<BancoDao, BancoDao>();
+            services.AddSingleton<PerfilDao, PerfilDao>();
+            services.AddSingleton<UsuarioDao, UsuarioDao>();
 
             // Servicios
             services.AddSingleton<ServicioComentario, ServicioComentario>();
             services.AddSingleton<ServicioBanco, ServicioBanco>();
+            services.AddSingleton<ServicioRegistro, ServicioRegistro>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
