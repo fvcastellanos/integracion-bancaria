@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,0" last-zoom="1"
+	 default-schema="bancos" default-owner="bancos">
+<role name="bancos"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="postgres" encoding="UTF8" lc-collate="English_United States" lc-ctype="English_United States">
+	<role name="bancos"/>
+	<tablespace name="pg_default"/>
+	<comment><![CDATA[default administrative connection database]]></comment>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="bancos" rect-visible="true" fill-color="#83af1f">
+	<role name="bancos"/>
+</schema>
+
+<sequence name="banco_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="banco">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="180" y="80"/>
+	<column name="id" not-null="true" sequence="bancos.banco_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="codigo" not-null="true">
+		<type name="varchar" length="20"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="pais" not-null="true">
+		<type name="varchar" length="2"/>
+	</column>
+	<column name="activo" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<constraint name="banco_pk" type="pk-constr" table="bancos.banco">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="banco_codigo_uq" type="uq-constr" table="bancos.banco">
+		<columns names="codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="configuracion_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<index name="idx_banco_pais" table="bancos.banco"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="pais"/>
+		</idxelement>
+</index>
+
+<index name="idx_banco_activo" table="bancos.banco"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="activo"/>
+		</idxelement>
+</index>
+
+<sequence name="comentario_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="comentario">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="980" y="80"/>
+	<column name="id" not-null="true" sequence="bancos.comentario_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="ip" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="correo" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<column name="comentario" not-null="true">
+		<type name="text"/>
+	</column>
+	<constraint name="comentario_pk" type="pk-constr" table="bancos.comentario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="usuario_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="usuario">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="1180" y="300"/>
+	<column name="id" not-null="true" sequence="bancos.usuario_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="usuario" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="clave" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="activo" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<constraint name="usuario_pk" type="pk-constr" table="bancos.usuario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="usuario_usr_uq" type="uq-constr" table="bancos.usuario">
+		<columns names="usuario" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="idx_usuario_activo" table="bancos.usuario"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="activo"/>
+		</idxelement>
+</index>
+
+<sequence name="perfil_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="perfil">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="1460" y="100"/>
+	<column name="id" not-null="true" sequence="bancos.perfil_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="nombres" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="apellidos" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="correo" not-null="true">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="perfil_pk" type="pk-constr" table="bancos.perfil">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="usuario_id" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="perfil_uq" index="2"/>
+		<object name="usuario_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="perfil_has_one_usuario" type="rel11"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="bancos.usuario"
+	 dst-table="bancos.perfil"
+	 src-required="true" dst-required="false"/>
+
+<sequence name="usuario_banco_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="usuario_banco">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="700" y="220"/>
+	<column name="id" not-null="true" sequence="bancos.usuario_banco_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="autorizacion" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<constraint name="usuario_banco_pk" type="pk-constr" table="bancos.usuario_banco">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="banco_id" index="1"/>
+		<object name="usuario_id" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="banco_fk" index="1"/>
+		<object name="usuario_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="banco_has_many_usuario_banco" type="rel1n"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="bancos.banco"
+	 dst-table="bancos.usuario_banco"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="usuario_has_many_usuario_banco" type="rel1n"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="bancos.usuario"
+	 dst-table="bancos.usuario_banco"
+	 src-required="true" dst-required="false"/>
+
+<constraint name="usuario_banco_uq" type="uq-constr" table="bancos.usuario_banco">
+	<columns names="banco_id,usuario_id" ref-type="src-columns"/>
+</constraint>
+
+<sequence name="transaccion_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="transaccion">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="560" y="400"/>
+	<column name="id" not-null="true" sequence="bancos.transaccion_seq">
+		<type name="bigint"/>
+	</column>
+	<column name="fecha" not-null="true" default-value="CURRENT_TIMESTAMP">
+		<type name="timestamp with time zone" with-timezone="true"/>
+	</column>
+	<column name="monto">
+		<type name="double precision"/>
+	</column>
+	<column name="descripcion">
+		<type name="text"/>
+	</column>
+	<column name="autorizacion" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<constraint name="transaccion_pk" type="pk-constr" table="bancos.transaccion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="banco_id" index="3"/>
+		<object name="operacion_id" index="1"/>
+		<object name="usuario_id" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="banco_fk" index="3"/>
+		<object name="operacion_fk" index="1"/>
+		<object name="usuario_fk" index="2"/>
+	</customidxs>
+</table>
+
+<sequence name="operacion_id"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+</sequence>
+
+<table name="operacion">
+	<schema name="bancos"/>
+	<role name="bancos"/>
+	<position x="1240" y="540"/>
+	<column name="id" not-null="true" sequence="bancos.operacion_id">
+		<type name="bigint"/>
+	</column>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="150"/>
+	</column>
+	<column name="descripcion">
+		<type name="varchar" length="255"/>
+	</column>
+	<constraint name="operacion_pk" type="pk-constr" table="bancos.operacion">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="operacion_has_many_transaccion" type="rel1n"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="bancos.operacion"
+	 dst-table="bancos.transaccion"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="usuario_has_many_transaccion" type="rel1n"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="bancos.usuario"
+	 dst-table="bancos.transaccion"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="banco_has_many_transaccion" type="rel1n"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="bancos.banco"
+	 dst-table="bancos.transaccion"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>

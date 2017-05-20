@@ -1,0 +1,16 @@
+@model IntegracionBancaria.Model.Views.Comentario
+
+@{
+    ViewData["Title"] = "Comentario Recibido";
+}
+<h2>@ViewData["Title"]</h2>
+<p>
+    Gracias <span class="text-primary">@Model.Nombre</span> hemos recibido tu comentario:
+</p>
+<pre>
+    @Model.Texto
+</pre>
+<p>
+    Para nosotros es muy importante lo que tienes que decirnos, estaremos en contacto al correo proporcionado: <span class="text-primary">@Model.Correo</span>
+</p>
+
