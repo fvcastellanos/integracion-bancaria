@@ -17,6 +17,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
         {
             _logger.LogInformation("Agregando comentario de {1}", nombre);
             var filas = 0;
+
             using (IDbConnection db = GetConnection())
             {
                 var sql = "insert into bancos.comentario (nombre, ip, correo, comentario) values (@Nombre, @Ip, @Correo, @Comentario) ";

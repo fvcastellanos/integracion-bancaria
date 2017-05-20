@@ -72,7 +72,6 @@ namespace IntegracionBancaria.Controllers
 
                 ModelState.AddModelError("Application Error", result.GetFailure().Message);
 
-                // ViewData["error"] = result.GetFailure().Message;
             }
 
             return View("Contacto", comentario);

@@ -1,0 +1,74 @@
+@model IntegracionBancaria.Model.Views.RegistroViewModel
+
+@{
+    ViewData["Title"] = "Registro de Usuarios";
+}
+<h2>@ViewData["Title"]</h2>
+
+<p>Por favor ingrese la siguiente información para obtener acceso a la plataforma:</p>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-6">
+
+        @using (Html.BeginForm("Registrarse", "Registro", FormMethod.Post, new { @class = "contacto" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="banco">Banco</label>
+                @Html.DropDownListFor(model => model.Registro.BancoId, Model.Bancos, new { @class = "form-control", @id = "banco" })
+            </div>
+
+            <div class="form-group">
+                <label for="nombres">Nombres</label>
+                @Html.TextBoxFor(model => model.Registro.Nombres, new { @class = "form-control", @placeholder = "Nombres", @id = "nombres" })
+                @Html.ValidationMessageFor(model => model.Registro.Nombres, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="apellidos">Nombres</label>
+                @Html.TextBoxFor(model => model.Registro.Apellidos, new { @class = "form-control", @placeholder = "Apellidos", @id = "apellidos" })
+                @Html.ValidationMessageFor(model => model.Registro.Apellidos, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="correo">Correo Electrónico</label>
+                @Html.TextBoxFor(model => model.Registro.Correo, new { @class = "form-control", @placeholder = "Correo Electrónico", @id = "correo" })
+                @Html.ValidationMessageFor(model => model.Registro.Correo, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                <label for="usuario">Usuario</label>
+                @Html.TextBoxFor(model => model.Registro.Usuario, new { @class = "form-control", @placeholder = "Usuario", @id = "usuario" })
+                @Html.ValidationMessageFor(model => model.Registro.Usuario, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="clave">Contraseña</label>
+                @Html.PasswordFor(model => model.Registro.Clave, new { @class = "form-control", @id = "clave" })
+                @Html.ValidationMessageFor(model => model.Registro.Clave, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label for="clave2">Confirmar Contraseña</label>
+                @Html.PasswordFor(model => model.Registro.ConfirmacionClave, new { @class = "form-control", @id = "clave2" })
+                @Html.ValidationMessageFor(model => model.Registro.ConfirmacionClave, String.Empty,  new { @class = "text-danger" })
+            </div>
+
+            <span class="text-danger">@Html.ValidationSummary()</span>
+            <input type="submit" class="btn btn-primary" value="Enviar registro" />
+            <a class="btn" asp-controller="Login" asp-action="Login">Regresar</a>
+
+        }
+    </div>
+</div>
+
+@section CustomCss
+{
+    <style>
+        .contacto > .form-group > input, textarea {
+            max-width: 100%;
+        }
+    </style>
+}
