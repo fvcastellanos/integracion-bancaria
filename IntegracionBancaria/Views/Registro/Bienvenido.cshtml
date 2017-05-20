@@ -1,0 +1,30 @@
+@model IntegracionBancaria.Domain.Perfil
+
+@{
+    ViewData["Title"] = "Bienvenido!";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>Gracias por registrarse:</p>
+
+<div class="row">
+    <div class="col-md-offset-1 col-md-6">
+        <table class="table table-striped">
+            <tr>
+                <td>Nombres: </td>
+                <td>@Model.Nombres</td>
+            </tr>
+            <tr>
+                <td>Apellidos: </td>
+                <td>@Model.Apellidos</td>
+            </tr>
+            <tr>
+                <td>Correo: </td>
+                <td>@Model.Correo</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<p>Puede iniciar sesion <a asp-controller="Login" asp-action="Login">aqui</a></p>
