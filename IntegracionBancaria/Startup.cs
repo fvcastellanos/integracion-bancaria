@@ -35,6 +35,16 @@ namespace IntegracionBancaria
             services.AddOptions();
             services.AddMvc();
 
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
+                options.CookieHttpOnly = true;
+            });
+
             services.Configure<AppSettings>(x => Configuration.GetSection("AppSettings").Bind(x));
 
             // Daos
@@ -44,9 +54,11 @@ namespace IntegracionBancaria
             services.AddSingleton<UsuarioDao, UsuarioDao>();
 
             // Servicios
+            services.AddSingleton<ServicioCriptografia, ServicioCriptografia>();
             services.AddSingleton<ServicioComentario, ServicioComentario>();
             services.AddSingleton<ServicioBanco, ServicioBanco>();
             services.AddSingleton<ServicioRegistro, ServicioRegistro>();
+            services.AddSingleton<ServicioInicioSesion, ServicioInicioSesion>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +66,8 @@ namespace IntegracionBancaria
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseSession();
 
             if (env.IsDevelopment())
             {
@@ -73,6 +87,7 @@ namespace IntegracionBancaria
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }
