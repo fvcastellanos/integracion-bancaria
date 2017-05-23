@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using IntegracionBancaria.Model.Domain;
 using Microsoft.Extensions.Logging;
@@ -24,6 +25,20 @@ namespace IntegracionBancaria.Model.Data.Dapper
             }
 
             return bancos;
+        }
+
+        public Banco ObtenerBancoPorCodigo(string codigo)
+        {
+            Banco banco = null;
+
+            using (IDbConnection db = GetConnection())
+            {
+                var sql = "select * from bancos.banco where codigo = @Codigo";
+
+                banco = db.Query<Banco>(sql, new { Codigo = codigo }).FirstOrDefault();
+            }
+
+            return banco;
         }
     }
 }

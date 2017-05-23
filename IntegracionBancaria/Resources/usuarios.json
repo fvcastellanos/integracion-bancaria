@@ -1,9 +1,9 @@
 [
     {
-        "id": 1,
+        "codigo": "BR",
         "bancos": [
             {
-                "id": 1,
+                "usr": "juan",
                 "nombre": "Banco A",
                 "cuentas": [
                     {
@@ -25,7 +25,7 @@
                 ]
             },
             {
-                "id": 2,
+                "usr": "juan",
                 "nombre": "Banco B",
                 "cuentas": [
                     {
@@ -41,10 +41,10 @@
         ]
     },
     {
-        "id": 2,
+        "codigo": "BI",
         "bancos": [
             {
-                "id": 1,
+                "usr": "juan",
                 "nombre": "Banco A",
                 "cuentas": [
                     {

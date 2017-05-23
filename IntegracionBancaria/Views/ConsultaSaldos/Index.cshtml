@@ -3,8 +3,8 @@
 @using (Html.BeginForm("Index", "ConsultaSaldos"))
 {
     <div class="form-group">
-        @Html.LabelFor(model => model.BancoId, "Banco")
-        @Html.DropDownListFor(model => model.BancoId, new SelectList(Model.Bancos, "Id", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
+        @Html.LabelFor(model => model.Codigo, "Banco")
+        @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
     </div>
 }
 
@@ -33,7 +33,7 @@
                     $cuentasTable.dataTable().fnDestroy();
                     $cuentasTable.DataTable({
                         ajax: {
-                            url: "/api/Mock/Usuarios/1/Bancos/" + bancoId + "/Cuentas/",
+                            url: "/api/Mock/Usuarios/@Model.Usuario/Bancos/" + bancoId + "/Cuentas/",
                             dataSrc: ""
                         },
                         columns: [

@@ -7,7 +7,7 @@ namespace IntegracionBancaria.Controllers
 {
     public class SesionController : Controller
     {
-        protected Perfil ObtenerUsuario()
+        protected Perfil ObtenerPerfilUsuario()
         {
             Perfil perfil = new Perfil();
             var perfilSt = HttpContext.Session.GetString("perfil");
@@ -20,6 +20,11 @@ namespace IntegracionBancaria.Controllers
             }
 
             return perfil;
+        }
+
+        protected string ObtenerUsuario()
+        {
+            return HttpContext.Session.GetString("usuario");
         }
     }
 }

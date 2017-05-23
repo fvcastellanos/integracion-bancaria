@@ -12,12 +12,12 @@ namespace IntegracionBancaria.Controllers
         {
         }
 
-        [HttpGet("Usuarios/{usuarioId}/Bancos/{bancoId}/Cuentas")]
-        public List<Cuenta> GetCuentas(long usuarioId, long bancoId)
+        [HttpGet("Usuarios/{usr}/Bancos/{banco}/Cuentas")]
+        public List<Cuenta> GetCuentas(string usr, string banco)
         {
             var usuarios = JsonConvert.DeserializeObject<List<Usuario>>(System.IO.File.ReadAllText("./Resources/usuarios.json"));
-            var usuario = usuarios.Find(u => u.Id == usuarioId);
-            var bancos = usuario.Bancos.Find(b => b.Id == bancoId);
+            var usuario = usuarios.Find(u => u.Usr == usr);
+            var bancos = usuario.Bancos.Find(b => b.Codigo == banco);
             
             return bancos.Cuentas;
         }

@@ -1,11 +1,13 @@
+using IntegracionBancaria.Model.Views;
 using IntegracionBancaria.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegracionBancaria.Controllers
 {
-    public class ConsultaSaldos : Controller
+    public class ConsultaSaldos : SesionController
     {
         private readonly ServicioBanco _servicioBanco;
+
         public ConsultaSaldos(ServicioBanco servicioBanco)
         {
             _servicioBanco = servicioBanco;
@@ -13,9 +15,11 @@ namespace IntegracionBancaria.Controllers
 
         public IActionResult Index()
         {
+            var perfil = ObtenerPerfilUsuario();
             var bancos = _servicioBanco.ObtenerBancosActivos().GetPayload();
-            var consultaSaldos = new Model.Views.ConsultaSaldosViewModel {
+            var consultaSaldos = new ConsultaSaldosViewModel {
                 Bancos = bancos,
+                Usuario = ObtenerUsuario()
             };
 
             return View(consultaSaldos);

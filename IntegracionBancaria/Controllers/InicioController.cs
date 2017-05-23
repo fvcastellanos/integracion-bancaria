@@ -6,9 +6,14 @@ namespace IntegracionBancaria.Controllers
     {
         public IActionResult Index()
         {
-            var perfil = ObtenerUsuario();
+            var perfil = ObtenerPerfilUsuario();
             
             return View(perfil);
+        }
+
+        public IActionResult Consultas()
+        {
+            return View();
         }
 
         public IActionResult Salir()
