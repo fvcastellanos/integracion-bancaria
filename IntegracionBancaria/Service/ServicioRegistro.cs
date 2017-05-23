@@ -13,11 +13,14 @@ namespace IntegracionBancaria.Service
         private readonly PerfilDao _perfilDao;
         private readonly UsuarioDao _usuarioDao;
 
-        public ServicioRegistro(PerfilDao perfilDao, UsuarioDao usuarioDao, ILogger<ServicioRegistro> logger)
+        private readonly ServicioCriptografia _servicioCriptografia;
+
+        public ServicioRegistro(PerfilDao perfilDao, UsuarioDao usuarioDao, ServicioCriptografia servicioCriptografia, ILogger<ServicioRegistro> logger)
         {
             _logger = logger;
             _perfilDao = perfilDao;
             _usuarioDao = usuarioDao;
+            _servicioCriptografia = servicioCriptografia;
         }
 
         public Result<string, Perfil> RegistrarUsuario(RegistroViewModel registroViewModel)
@@ -25,6 +28,7 @@ namespace IntegracionBancaria.Service
             try
             {
                 var registro = registroViewModel.Registro;
+                registro.Clave = _servicioCriptografia.CodificarASha256(registro.Clave);
 
                 _logger.LogInformation("Registranto usuario: {0}", registro.Nombres);
 
@@ -43,6 +47,7 @@ namespace IntegracionBancaria.Service
             }
             catch (Exception ex)
             {
+                _logger.LogError("Exception: {0}", ex);
                 return Result<string, Perfil>.ForFailure(ex.Message);
             }
         }
