@@ -1,7 +1,8 @@
 @{
-    if (Session["perfil"] == null)
+    byte [] value;
+    if (!Context.Session.TryGetValue("perfil", out value))
     {
-        Html.Action("Index", "Login");
+        Context.Response.Redirect("/Login");
     }
 }
 
@@ -35,13 +36,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Login" asp-action="Login" class="navbar-brand">Banca en Linea</a>
+                <a asp-area="" asp-controller="Inicio" asp-action="Index" class="navbar-brand">Banca en Linea</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="TipoCambio">Tipo de Cambio</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contacto">Contacto</a></li>
+                    <!--<li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="TipoCambio">Tipo de Cambio</a></li>-->
+                    <li><a asp-area="" asp-controller="Inicio" asp-action="Salir">Salir</a></li>
                 </ul>
             </div>
         </div>
