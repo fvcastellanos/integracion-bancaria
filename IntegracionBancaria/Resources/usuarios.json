@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "bancos": [
+            {
+                "id": 1,
+                "nombre": "Banco A",
+                "cuentas": [
+                    {
+                        "nombreCuenta": "Pedro Lopez",
+                        "moneda": "Q",
+                        "saldoDisponible": 600.0,
+                        "saldoEnReserva": 100.0,
+                        "saldoFlotante": 25.0,
+                        "saldoTotal": 600.0
+                    },
+                    {
+                        "nombreCuenta": "Pedro Lopez",
+                        "moneda": "$",
+                        "saldoDisponible": 600.0,
+                        "saldoEnReserva": 100.0,
+                        "saldoFlotante": 25.0,
+                        "saldoTotal": 600.0
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "nombre": "Banco B",
+                "cuentas": [
+                    {
+                        "nombreCuenta": "Pedro Lopez",
+                        "moneda": "Q",
+                        "saldoDisponible": 300.0,
+                        "saldoEnReserva": 200.0,
+                        "saldoFlotante": 15.0,
+                        "saldoTotal": 300.0
+                    }
+                ]
+            }            
+        ]
+    },
+    {
+        "id": 2,
+        "bancos": [
+            {
+                "id": 1,
+                "nombre": "Banco A",
+                "cuentas": [
+                    {
+                        "nombreCuenta": "Juan Karlson",
+                        "moneda": "Q",
+                        "saldoDisponible": 200.0,
+                        "saldoEnReserva": 50.0,
+                        "saldoFlotante": 25.0,
+                        "saldoTotal": 200.0
+                    }
+                ]
+            }
+        ]
+    }
+]
