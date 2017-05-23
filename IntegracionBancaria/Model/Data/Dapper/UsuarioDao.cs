@@ -3,6 +3,7 @@ using IntegracionBancaria.Domain;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Dapper;
+using System.Linq;
 
 namespace IntegracionBancaria.Model.Data.Dapper
 {
@@ -52,7 +53,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
             {
                 var sql = "select * from bancos.usuario where id = @Id";
 
-                usuario = db.QuerySingle<Usuario>(sql, new { Id = id });
+                usuario = db.Query<Usuario>(sql, new { Id = id }).FirstOrDefault();
             }
 
             return usuario;
@@ -64,9 +65,9 @@ namespace IntegracionBancaria.Model.Data.Dapper
 
             using (IDbConnection db = GetConnection())
             {
-                var sql = "select * from bancos.usuario where usuario = @Usuario";
+                var sql = "select id, usuario as usr, clave, activo from bancos.usuario where usuario = @Usuario";
 
-                usuario = db.QuerySingle<Usuario>(sql, new { Usuario = usr });
+                usuario = db.Query<Usuario>(sql, new { Usuario = usr }).FirstOrDefault();
             }
 
             return usuario;
