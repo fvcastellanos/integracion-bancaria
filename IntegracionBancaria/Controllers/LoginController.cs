@@ -37,6 +37,7 @@ namespace IntegracionBancaria.Controllers
                 if (result.IsSuccess())
                 {
                     HttpContext.Session.SetString("perfil", JsonConvert.SerializeObject(result.GetPayload()));
+                    HttpContext.Session.SetString("usuario", login.Usuario);
                     return RedirectToAction("Index", "Inicio");
                 }
 

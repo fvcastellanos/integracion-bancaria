@@ -59,12 +59,12 @@ namespace IntegracionBancaria.Controllers
         }
 
         private SelectList CrearListaBancos(IEnumerable lista) {
-            return new SelectList(lista, "Id", "Nombre");
+            return new SelectList(lista, "Codigo", "Nombre");
         }
 
         private SelectList CrearListaVacia()
         {
-            var banco = new Banco() { Id = 0, Nombre = "Sin Valor" };
+            var banco = new Banco() { Codigo = "--", Nombre = "Sin Valor" };
             var lista = new List<Banco>();
             lista.Add(banco);
 

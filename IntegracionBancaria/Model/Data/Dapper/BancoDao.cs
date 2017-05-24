@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using IntegracionBancaria.Model.Domain;
 using Microsoft.Extensions.Logging;
@@ -24,6 +25,37 @@ namespace IntegracionBancaria.Model.Data.Dapper
             }
 
             return bancos;
+        }
+
+        public IList<Banco> ObtenerBancosPorUsuario(string usuario)
+        {
+            IList<Banco> bancos = null;
+            using (IDbConnection conexion = GetConnection())
+            {
+                var consulta = "select b.* " +
+                    "from bancos.usuario u " +
+                    "  inner join bancos.usuario_banco ub on u.id = ub.usuario_id " +
+                    "  inner join bancos.banco b on ub.banco_id = b.id " +
+                    "  where usuario = @Usuario";
+
+                bancos = conexion.Query<Banco>(consulta, new { Usuario = usuario }).AsList();
+            }
+
+            return bancos;
+        }
+
+        public Banco ObtenerBancoPorCodigo(string codigo)
+        {
+            Banco banco = null;
+
+            using (IDbConnection db = GetConnection())
+            {
+                var sql = "select * from bancos.banco where codigo = @Codigo";
+
+                banco = db.Query<Banco>(sql, new { Codigo = codigo }).FirstOrDefault();
+            }
+
+            return banco;
         }
     }
 }
