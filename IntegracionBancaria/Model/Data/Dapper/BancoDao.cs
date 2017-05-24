@@ -36,7 +36,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
                     "from bancos.usuario u " +
                     "  inner join bancos.usuario_banco ub on u.id = ub.usuario_id " +
                     "  inner join bancos.banco b on ub.banco_id = b.id " +
-                    "  where usuario = @Usuario";
+                    "  where usuario = @Usuario and b.activo = true and u.activo = true";
 
                 bancos = conexion.Query<Banco>(consulta, new { Usuario = usuario }).AsList();
             }

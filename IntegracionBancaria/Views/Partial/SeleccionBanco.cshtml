@@ -1,0 +1,8 @@
+
+@using (Html.BeginForm("Index", "ConsultaSaldos"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Codigo, "Banco")
+        @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
+    </div>
+}
