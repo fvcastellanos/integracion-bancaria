@@ -16,10 +16,11 @@ namespace IntegracionBancaria.Controllers
         public IActionResult Index()
         {
             var perfil = ObtenerPerfilUsuario();
-            var bancos = _servicioBanco.ObtenerBancosActivos().GetPayload();
+            var usuario = ObtenerUsuario();
+            var bancos = _servicioBanco.ObtenerBancosUsuario(usuario).GetPayload();
             var consultaSaldos = new ConsultaSaldosViewModel {
                 Bancos = bancos,
-                Usuario = ObtenerUsuario()
+                Usuario = usuario
             };
 
             return View(consultaSaldos);
