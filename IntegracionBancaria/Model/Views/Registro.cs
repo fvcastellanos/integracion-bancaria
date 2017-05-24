@@ -6,7 +6,7 @@ namespace IntegracionBancaria.Model.Views
     public class Registro
     {
         [Required]
-        public long BancoId { get; set; }
+        public string Codigo { get; set; }
 
         [Required]
         [StringLength(50)]
