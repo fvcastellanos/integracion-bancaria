@@ -71,6 +71,25 @@ namespace IntegracionBancaria.Service
             return false;
         }
 
+        public string AsociarBancoUsuario(string codigo, string usuario)
+        {
+            try 
+            {
+                _logger.LogInformation("Asociando usuario: {} al banco: {}", usuario, codigo);
+                var banco = _bancoDao.ObtenerBancoPorCodigo(codigo);
+                var objetoUsuario = _usuarioDao.BuscarPorUsuario(usuario);
+
+                _usuarioDao.AsociarBancoUsuario(banco.Id, objetoUsuario.Id, "demo-aplicacion");
+
+                return "";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error al asociar usuario {} al banco {}, {}", usuario, codigo, ex);
+                return ex.Message;
+            }
+        }
+
         private Usuario ConstruirUsuario(Registro registro)
         {
             var usuario = new Usuario() { Usr = registro.Usuario, Clave = registro.Clave };
