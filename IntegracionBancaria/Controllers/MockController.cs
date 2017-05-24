@@ -23,11 +23,6 @@ namespace IntegracionBancaria.Controllers
         {
             var perfil = _perfilDao.BuscarPorUsuario(usr);
             return ServicioMock.ConsultarSaldos(perfil, banco);
-            // var usuarios = JsonConvert.DeserializeObject<List<Usuario>>(System.IO.File.ReadAllText("./Resources/usuarios.json"));
-            // var usuario = usuarios.Find(u => u.Usr == usr);
-            // var bancos = usuario.Bancos.Find(b => b.Codigo == banco);
-            
-            // return bancos.Cuentas;
         }
 
     }
