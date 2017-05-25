@@ -52,6 +52,7 @@ namespace IntegracionBancaria
             services.AddSingleton<BancoDao, BancoDao>();
             services.AddSingleton<PerfilDao, PerfilDao>();
             services.AddSingleton<UsuarioDao, UsuarioDao>();
+            services.AddSingleton<TransaccionDao, TransaccionDao>();
 
             // Servicios
             services.AddSingleton<ServicioCriptografia, ServicioCriptografia>();
@@ -59,6 +60,7 @@ namespace IntegracionBancaria
             services.AddSingleton<ServicioBanco, ServicioBanco>();
             services.AddSingleton<ServicioRegistro, ServicioRegistro>();
             services.AddSingleton<ServicioInicioSesion, ServicioInicioSesion>();
+            services.AddSingleton<ServicioTransaccion, ServicioTransaccion>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
