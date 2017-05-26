@@ -4,6 +4,7 @@ namespace IntegracionBancaria.Model.Domain.Mock
 {
     public class Cuenta
     {
+        public string NumeroCuenta { get; set; }
         public string NombreCuenta { get; set; }
         public string Moneda { get; set; }
         public float SaldoDisponible { get; set; }

@@ -16,10 +16,16 @@ namespace IntegracionBancaria.Service
             _logger = logger;
         }
         
-        public void CrearTransaccion(Transaccion transaccion)
+        public long CrearTransaccion(Transaccion transaccion)
         {
             _logger.LogInformation("Creando transaccion.");
-            _transaccionDao.CrearTransaccion(transaccion);
+            return _transaccionDao.CrearTransaccion(transaccion);
+        }
+
+        public long CrearTransaccionDetalle(TransaccionDetalle transaccionDetalle)
+        {
+            _logger.LogInformation("Creando transaccion detalle.");
+            return _transaccionDao.CrearTransaccionDetalle(transaccionDetalle);
         }
     }
 }
