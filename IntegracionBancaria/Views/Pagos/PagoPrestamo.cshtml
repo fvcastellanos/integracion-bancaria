@@ -1,8 +1,8 @@
 @model IntegracionBancaria.Model.Views.PagoViewModel
 
-<h1>Pago de Tarjeta de Crédito</h1>
+<h1>Pago de Préstamo</h1>
 
-@using (Html.BeginForm("PagarTarjeta", "Pagos", FormMethod.Post))
+@using (Html.BeginForm("PagarPrestamo", "Pagos", FormMethod.Post))
 {
 <div class="row">
     <div class="col-xs-6 col-sm-3">
@@ -13,8 +13,8 @@
     </div>
     <div class="col-xs-6 col-sm-3">
         <div class="form-group">
-            <label for="tarjetas">Tarjeta No.</label>
-            <select id="tarjetas" class="form-control" data-val="true" name="tarjetas" required><option value="">-- Seleccionar --</option></select>
+            <label for="prestamos">Prestamo No.</label>
+            <select id="prestamos" class="form-control" data-val="true" name="prestamos" required><option value="">-- Seleccionar --</option></select>
         </div>
     </div>
 </div>
@@ -69,18 +69,18 @@
             $('#banco-a-pagar').on('click', function () {
                 let codigoBanco = $(this).val();
                 if (codigoBanco) {
-                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Tarjetas/', function(tarjetas) {
+                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Prestamos/', function(prestamos) {
                         var options = '<option value="">-- Seleccionar --</option>';
-                        if (tarjetas) {
-                            window.tarjetas = tarjetas;
-                            tarjetas.forEach(function(tarjeta) {
-                                options += '<option value="' + tarjeta['numeroTarjeta'] + '">' + tarjeta['numeroTarjeta'] + ' - ' + tarjeta['nombreCuenta'] + '</option>';
+                        if (prestamos) {
+                            window.prestamos = prestamos;
+                            prestamos.forEach(function(prestamo) {
+                                options += '<option value="' + prestamo['numeroPrestamo'] + '">' + prestamo['numeroPrestamo'] + ' - ' + prestamo['nombreCuenta'] + '</option>';
                             });
                         }
-                        $('#tarjetas').html(options);
+                        $('#prestamos').html(options);
                     });
                 } else {
-                    $('#tarjetas').html('<option value="">-- Seleccionar --</option>');
+                    $('#prestamos').html('<option value="">-- Seleccionar --</option>');
                 }
             });
             $('#banco-para-pagar').on('click', function () {
@@ -100,9 +100,9 @@
                 }
             });            
             
-            $('#tarjetas').on('click', function () {
-                let numeroTarjeta = $(this).val();
-                if (numeroTarjeta) {
+            $('#prestamos').on('click', function () {
+                let numeroPrestamo = $(this).val();
+                if (numeroPrestamo) {
                     $('#resumen-pago tbody').remove();
                     $('#resumen-pago').append('<tbody>');
                     $("#resumen-pago").find('tbody')
@@ -110,13 +110,13 @@
                             .append($('<td>')
                                 .append('Pago Contado'))
                             .append($('<td>')
-                                .append(window.tarjetas.find(function(tarjeta) { return tarjeta.numeroTarjeta === $('#tarjetas').val(); }).saldoTotal))
+                                .append(window.prestamos.find(function(prestamo) { return prestamo.numeroPrestamo === $('#prestamos').val(); }).saldoTotal))
                         )
                         .append($('<tr>')
                             .append($('<td>')
                                 .append('Monto a Pagar'))
                             .append($('<td>')
-                                .append(window.tarjetas.find(function(tarjeta) { return tarjeta.numeroTarjeta === $('#tarjetas').val(); }).saldoTotal))
+                                .append(window.prestamos.find(function(prestamo) { return prestamo.numeroPrestamo === $('#prestamos').val(); }).saldoTotal))
                         );
                 } else {
                     $('#resumen-pago tbody').remove();

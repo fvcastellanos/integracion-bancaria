@@ -25,18 +25,17 @@ namespace IntegracionBancaria.Controllers
             var perfil = ObtenerPerfilUsuario();
             var usuario = ObtenerUsuario();
             var bancos = _servicioBanco.ObtenerBancosUsuario(usuario).GetPayload();
-            var pagoTarjetaCredito = new PagoTarjetaCreditoViewModel
+            var pagoViewModel = new PagoViewModel
             {
                 Bancos = bancos,
                 Usuario = usuario
             };
 
-            return View(pagoTarjetaCredito);
+            return View(pagoViewModel);
         }
 
-
         [HttpPost]
-        public IActionResult Pagar(IFormCollection formCollection)
+        public IActionResult PagarTarjeta(IFormCollection formCollection)
         {
             var perfil = ObtenerPerfilUsuario();
             var usuario = ObtenerUsuario();
@@ -63,14 +62,60 @@ namespace IntegracionBancaria.Controllers
             
             _servicioTransaccion.CrearTransaccionDetalle(transaccionDetalle);
 
-            var pagoTarjetaCredito = new PagoTarjetaCreditoViewModel
+            var pagoViewModel = new PagoViewModel
             {
                 Autorizacion = autorizacion
             };
+            return View(pagoViewModel);
+        }
 
+        public IActionResult PagoPrestamo()
+        {
+            var perfil = ObtenerPerfilUsuario();
+            var usuario = ObtenerUsuario();
+            var bancos = _servicioBanco.ObtenerBancosUsuario(usuario).GetPayload();
+            var pagoViewModel = new PagoViewModel
+            {
+                Bancos = bancos,
+                Usuario = usuario
+            };
+
+            return View(pagoViewModel);
+        }
+
+       [HttpPost]
+        public IActionResult PagarPrestamo(IFormCollection formCollection)
+        {
+            var perfil = ObtenerPerfilUsuario();
+            var usuario = ObtenerUsuario();
+            List<Banco> bancos = (List<Banco>) _servicioBanco.ObtenerBancosUsuario(usuario).GetPayload();
+
+            string[] bancosSeleccionados = formCollection["Codigo"];
+            string tarjeta = formCollection["prestamos"];
+            string cuenta = formCollection["cuentas"];
+            string monto = formCollection["monto"];
+            string descripcion = formCollection["descripcion"];
+            string autorizacion = System.Guid.NewGuid().ToString();
+
+            long transaccion = _servicioTransaccion.CrearTransaccion(new Transaccion(2, perfil.UsuarioId, descripcion));
+
+            var transaccionDetalle = new TransaccionDetalle(transaccion,
+                        bancos.Find(banco => banco.Codigo == bancosSeleccionados[0]).Id,
+                        tarjeta,
+                        bancos.Find(banco => banco.Codigo == bancosSeleccionados[1]).Id,
+                        cuenta,
+                        "Q",
+                        double.Parse(monto),
+                        autorizacion
+                        );
             
+            _servicioTransaccion.CrearTransaccionDetalle(transaccionDetalle);
 
-            return View(pagoTarjetaCredito);
+            var pagoViewModel = new PagoViewModel
+            {
+                Autorizacion = autorizacion
+            };
+            return View("Pagar", pagoViewModel);
         }
     }
 }

@@ -31,5 +31,12 @@ namespace IntegracionBancaria.Controllers
             var perfil = _perfilDao.BuscarPorUsuario(usr);
             return ServicioMock.ConsultarSaldoTarjetas(perfil, banco);
         }
+
+        [HttpGet("Usuarios/{usr}/Bancos/{banco}/Prestamos")]
+        public IList<Prestamo> GetPrestamos(string usr, string banco)
+        {
+            var perfil = _perfilDao.BuscarPorUsuario(usr);
+            return ServicioMock.ConsultarSaldoPrestamos(perfil, banco);
+        }
     }
 }

@@ -4,7 +4,7 @@ using IntegracionBancaria.Model.Domain;
 
 namespace IntegracionBancaria.Model.Views
 {
-    public class PagoTarjetaCreditoViewModel
+    public class PagoViewModel
     {
         public string Usuario { get; set; }
         public string Codigo { get; set; }

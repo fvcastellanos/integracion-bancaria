@@ -39,6 +39,22 @@ namespace IntegracionBancaria.Service
             return lista;
         }
 
+        public static IList<Prestamo> ConsultarSaldoPrestamos(Perfil perfil, string codigoBanco)
+        {
+            var lista = new List<Prestamo>();
+            lista.Add(new Prestamo { 
+                NumeroPrestamo = "PRES" + GenerarNumeroCuentasOTarjetasRandom(8),
+                NombreCuenta = perfil.Nombres + " " + perfil.Apellidos, 
+                Moneda = "GTQ",
+                SaldoDisponible = float.Parse(GenerarNumeroCuentasOTarjetasRandom(4)),
+                SaldoEnReserva = float.Parse(GenerarNumeroCuentasOTarjetasRandom(3)),
+                SaldoFlotante = float.Parse(GenerarNumeroCuentasOTarjetasRandom(2)),
+                SaldoTotal = float.Parse(GenerarNumeroCuentasOTarjetasRandom(4)),
+            });
+
+            return lista;
+        }
+
         private static string GenerarNumeroCuentasOTarjetasRandom(long length)
         {
             var stringChars = new char[length];
