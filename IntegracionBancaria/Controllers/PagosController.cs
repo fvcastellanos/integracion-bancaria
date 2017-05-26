@@ -8,19 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IntegracionBancaria.Controllers
 {
-    public class TarjetaCreditoController : SesionController
+    public class PagosController : SesionController
     {
         private readonly ServicioBanco _servicioBanco;
         private readonly ServicioTransaccion _servicioTransaccion;
 
-        public TarjetaCreditoController(ServicioBanco servicioBanco,
+        public PagosController(ServicioBanco servicioBanco,
                                         ServicioTransaccion servicioTransaccion)
         {
             _servicioBanco = servicioBanco;
             _servicioTransaccion = servicioTransaccion;
         }
 
-        public IActionResult Index()
+        public IActionResult PagoTarjeta()
         {
             var perfil = ObtenerPerfilUsuario();
             var usuario = ObtenerUsuario();
