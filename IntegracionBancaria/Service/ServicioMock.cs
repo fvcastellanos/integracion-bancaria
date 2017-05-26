@@ -20,5 +20,6 @@ namespace IntegracionBancaria.Service
 
             return lista;
         }
+
     }
 }
