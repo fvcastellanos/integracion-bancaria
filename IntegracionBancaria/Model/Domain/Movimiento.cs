@@ -3,7 +3,11 @@ namespace IntegracionBancaria.Model.Domain
 {
     public class Movimiento
     {
-		public DateTime Fecha { get; set; }
+      public DateTime Fecha { get; set; }
+      public string Numero { get; set; }
+      public string Moneda { get; set; }
+      public double Debito { get; set; }
+      public double Credito { get; set; }
 
     }
 }

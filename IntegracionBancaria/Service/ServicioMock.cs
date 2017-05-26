@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
 using IntegracionBancaria.Domain;
-using IntegracionBancaria.Model.Domain.Mock;
+using IntegracionBancaria.Model.Domain;
 
 namespace IntegracionBancaria.Service
 {
@@ -17,6 +18,29 @@ namespace IntegracionBancaria.Service
                 SaldoFlotante = 0,
                 SaldoTotal = 35000
             });
+
+            return lista;
+        }
+
+        public static IList<Movimiento> ObtenerMovimientos()
+        {
+            var lista = new List<Movimiento>();
+
+            lista.Add(new Movimiento() {
+                Fecha = DateTime.Now,
+                Numero = "X234",
+                Moneda = "GTQ",
+                Debito = 1340.33,
+                Credito = 0
+            });   
+
+            lista.Add(new Movimiento() {
+                Fecha = DateTime.Now,
+                Numero = "X235",
+                Moneda = "GTQ",
+                Debito = 0,
+                Credito = 10000
+            });   
 
             return lista;
         }

@@ -23,9 +23,18 @@
             <th>Moneda</th>
             <th>Debito</th>
             <th>Credito</th>
-            <th>Monto</th>
         </tr>
     </thead>
     <tbody>
+        @foreach(var movimiento in Model.Movimientos)
+        {
+            <tr>
+                <td>@movimiento.Fecha</td>
+                <td>@movimiento.Numero</td>
+                <td>@movimiento.Moneda</td>
+                <td>@movimiento.Debito</td>
+                <td>@movimiento.Credito</td>
+            </tr>
+        }
     </tbody>
 </table>

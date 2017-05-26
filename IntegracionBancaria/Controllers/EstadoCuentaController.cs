@@ -22,6 +22,18 @@ namespace IntegracionBancaria.Controllers
             return View(modelo);
         }
 
+        public IActionResult Obtener(string codigo, string numero)
+        {
+            var modelo = ConstruirModelo();
+
+            if (ModelState.IsValid)
+            {
+                modelo.Movimientos = ServicioMock.ObtenerMovimientos();
+            }
+
+            return View("Index", modelo);
+        }
+
         private EstadoCuentaViewModel ConstruirModelo()
         {
             var usuario = ObtenerUsuario();
@@ -32,7 +44,8 @@ namespace IntegracionBancaria.Controllers
             var modelo = new EstadoCuentaViewModel()
             {
                 Bancos = bancos,
-                Cuentas = cuentas
+                Cuentas = cuentas,
+                Movimientos = new List<Movimiento>()
             };
 
             return modelo;
