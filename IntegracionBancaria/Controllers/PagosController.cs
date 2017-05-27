@@ -66,7 +66,7 @@ namespace IntegracionBancaria.Controllers
             {
                 Autorizacion = autorizacion
             };
-            return View(pagoViewModel);
+            return View("Pagar", pagoViewModel);
         }
 
         public IActionResult PagoPrestamo()

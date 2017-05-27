@@ -26,5 +26,10 @@ namespace IntegracionBancaria.Controllers
         {
             return HttpContext.Session.GetString("usuario");
         }
+
+        protected void ErrorAplicacion(string error)
+        {
+            ModelState.AddModelError("Application Error", error);
+        }
     }
 }

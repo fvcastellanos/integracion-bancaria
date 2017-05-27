@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using IntegracionBancaria.Model.Data.Dapper;
+using IntegracionBancaria.Model.Domain;
 using IntegracionBancaria.Model.Domain.Mock;
 using IntegracionBancaria.Service;
 using Microsoft.AspNetCore.Mvc;
