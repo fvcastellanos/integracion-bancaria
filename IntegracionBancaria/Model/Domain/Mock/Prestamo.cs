@@ -1,11 +1,10 @@
 using System;
 
-namespace IntegracionBancaria.Model.Domain
+namespace IntegracionBancaria.Model.Domain.Mock
 {
-    public class Cuenta
+    public class Prestamo
     {
-        public string NumeroCuenta { get; set; }
-        public string Numero { get; set; }
+        public string NumeroPrestamo { get; set; }
         public string NombreCuenta { get; set; }
         public string Moneda { get; set; }
         public float SaldoDisponible { get; set; }

@@ -239,11 +239,8 @@ CREATE TABLE bancos.transaccion(
 	id bigint NOT NULL DEFAULT nextval('bancos.transaccion_seq'::regclass),
 	operacion_id bigint NOT NULL,
 	usuario_id bigint NOT NULL,
-	banco_id bigint NOT NULL,
 	fecha timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	monto double precision,
 	descripcion text,
-	autorizacion varchar(150) NOT NULL,
 	CONSTRAINT transaccion_pk PRIMARY KEY (id)
 
 );
@@ -292,11 +289,35 @@ REFERENCES bancos.usuario (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: banco_fk | type: CONSTRAINT --
--- ALTER TABLE bancos.transaccion DROP CONSTRAINT IF EXISTS banco_fk CASCADE;
-ALTER TABLE bancos.transaccion ADD CONSTRAINT banco_fk FOREIGN KEY (banco_id)
-REFERENCES bancos.banco (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
+-- object: bancos.transaccion_detalle | type: TABLE --
+-- DROP TABLE IF EXISTS bancos.transaccion_detalle CASCADE;
+CREATE TABLE bancos.transaccion_detalle(
+	id serial NOT NULL,
+	transaccion_id bigint,
+	a_banco_id bigint NOT NULL,
+	a_cuenta varchar(50) NOT NULL,
+	de_banco_id bigint NOT NULL,
+	de_cuenta varchar(50) NOT NULL,
+	moneda varchar(5) NOT NULL,
+	monto float NOT NULL,
+	autorizacion varchar(200) NOT NULL,
+	CONSTRAINT transaccion_detalle_pk PRIMARY KEY (id)
+
+);
+-- ddl-end --
+ALTER TABLE bancos.transaccion_detalle OWNER TO bancos;
+-- ddl-end --
+
+-- object: transaccion_fk | type: CONSTRAINT --
+-- ALTER TABLE bancos.transaccion_detalle DROP CONSTRAINT IF EXISTS transaccion_fk CASCADE;
+ALTER TABLE bancos.transaccion_detalle ADD CONSTRAINT transaccion_fk FOREIGN KEY (transaccion_id)
+REFERENCES bancos.transaccion (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: transaccion_detalle_uq | type: CONSTRAINT --
+-- ALTER TABLE bancos.transaccion_detalle DROP CONSTRAINT IF EXISTS transaccion_detalle_uq CASCADE;
+ALTER TABLE bancos.transaccion_detalle ADD CONSTRAINT transaccion_detalle_uq UNIQUE (transaccion_id);
 -- ddl-end --
 
 
