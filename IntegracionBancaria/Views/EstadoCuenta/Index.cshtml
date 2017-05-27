@@ -1,5 +1,9 @@
 @model IntegracionBancaria.Model.Views.EstadoCuentaViewModel
 
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
 @using (Html.BeginForm("Obtener", "EstadoCuenta"))
 {
     <div class="form-group">
@@ -23,6 +27,7 @@
             <th>Moneda</th>
             <th>Debito</th>
             <th>Credito</th>
+            <th>Documento</th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +39,7 @@
                 <td>@movimiento.Moneda</td>
                 <td>@movimiento.Debito</td>
                 <td>@movimiento.Credito</td>
+                <td><a href="/ConsultaDocumentos/@movimiento.Documento">@movimiento.Documento</a></td>
             </tr>
         }
     </tbody>

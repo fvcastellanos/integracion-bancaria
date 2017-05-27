@@ -64,7 +64,8 @@ namespace IntegracionBancaria.Service
                 Numero = "X234",
                 Moneda = "GTQ",
                 Debito = 1340.33,
-                Credito = 0
+                Credito = 0,
+                Documento = "CHK-303"
             });   
 
             lista.Add(new Movimiento() {
@@ -72,11 +73,23 @@ namespace IntegracionBancaria.Service
                 Numero = "X235",
                 Moneda = "GTQ",
                 Debito = 0,
-                Credito = 10000
+                Credito = 10000,
+                Documento = "NC-102"
             });   
 
             return lista;
         }
+
+        public static Documento CrearDocumento(string codigo)
+        {
+            var imagen = codigo.Equals("CHK-303")?"cheque.png":"nota.png";
+            return new Documento() {
+                Codigo = codigo,
+                Nombre = codigo.Equals("CHK-303")?"Cheque":"Nota de Credito",
+                Emision = DateTime.Now,
+                Ubicacion = "/images/" + imagen
+            };  
+        }       
 
         private static string GenerarNumeroCuentasOTarjetasRandom(long length)
         {
