@@ -88,7 +88,8 @@ namespace IntegracionBancaria.Service
                 Nombre = codigo.Equals("CHK-303")?"Cheque":"Nota de Credito",
                 Emision = DateTime.Now,
                 Ubicacion = "/images/" + imagen
-            };         
+            };  
+        }       
 
         private static string GenerarNumeroCuentasOTarjetasRandom(long length)
         {
