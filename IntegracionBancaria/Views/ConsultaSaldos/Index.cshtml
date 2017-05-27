@@ -1,0 +1,73 @@
+@model IntegracionBancaria.Model.Views.ConsultaSaldosViewModel
+
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+@using (Html.BeginForm("Index", "ConsultaSaldos"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Codigo, "Banco")
+        @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
+    </div>
+}
+
+<table id="resumen-cuentas" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre Cuenta</th>
+            <th>Moneda</th>
+            <th>Saldo Disponible</th>
+            <th>Saldo en Reserva</th>
+            <th>Saldo Flotante</th>
+            <th>Saldo Total</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section Scripts
+{    <script>
+        (function() {
+            $("#banco").change(function() {
+                var bancoId = $(this).val();
+                var $cuentasTable = $("#resumen-cuentas");
+                if (bancoId && bancoId !== "") {
+                    $cuentasTable.dataTable().fnDestroy();
+                    $cuentasTable.DataTable({
+                        ajax: {
+                            url: "/api/Mock/Usuarios/@Model.Usuario/Bancos/" + bancoId + "/Cuentas/",
+                            dataSrc: ""
+                        },
+                        columns: [
+                            {
+                                data: "nombreCuenta"
+                            },
+                            {
+                                data: "moneda"
+                            },
+                            {
+                                data: "saldoDisponible"
+                            },
+                            {
+                                data: "saldoEnReserva"
+                            },
+                            {
+                                data: "saldoFlotante"
+                            },
+                            {
+                                data: "saldoTotal"
+                            }
+                        ]
+                    });      
+                } else {
+                    $cuentasTable.DataTable()
+                        .clear()
+                        .draw();
+                }
+            });
+
+        })();
+    </script>
+}

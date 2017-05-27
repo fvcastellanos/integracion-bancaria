@@ -3,6 +3,7 @@ using IntegracionBancaria.Domain;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Dapper;
+using System.Linq;
 
 namespace IntegracionBancaria.Model.Data.Dapper
 {
@@ -40,9 +41,26 @@ namespace IntegracionBancaria.Model.Data.Dapper
             {
                 _logger.LogInformation("Obteninedo perfil id: {0}", id);
 
-                perfil = db.QuerySingle<Perfil>(sql, new { Id = id });
+                perfil = db.Query<Perfil>(sql, new { Id = id }).FirstOrDefault();
             }
         
+            return perfil;
+        }
+
+        public Perfil BuscarPorUsuario(string usr)
+        {
+            var sql = "select * from bancos.perfil p " +
+                "inner join bancos.usuario u on p.usuario_id = u.id " +
+                "where u.usuario = @Usuario";
+
+            Perfil perfil = null;
+            
+            using (IDbConnection db = GetConnection())
+            {
+                _logger.LogInformation("Buscando perfil del usuario: {0}", usr);
+                perfil = db.Query<Perfil>(sql, new { Usuario = usr }).FirstOrDefault();
+            }
+
             return perfil;
         }
 

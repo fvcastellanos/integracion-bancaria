@@ -33,6 +33,21 @@ namespace IntegracionBancaria.Service
             }
         }
 
+        public Result<Exception, IList<Banco>> ObtenerBancosUsuario(string usuario)
+        {
+            try 
+            {
+                _logger.LogInformation("Obteniendo listado de bancos del usuario: {}", usuario);
+                var bancos = _bancoDao.ObtenerBancosPorUsuario(usuario);
+                return Result<Exception, IList<Banco>>.ForSuccess(bancos);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error al obtener los bancos asignados al usuario {}, {}", usuario, ex);
+                return Result<Exception, IList<Banco>>.ForFailure(ex);
+            }
+        }
+
         public Result<Exception, long> RegistrarUsuario(Registro registro)
         {
             try
