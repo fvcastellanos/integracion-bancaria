@@ -1,0 +1,127 @@
+@model IntegracionBancaria.Model.Views.PagoViewModel
+
+<h1>Pago de Tarjeta de Crédito</h1>
+
+@using (Html.BeginForm("PagarTarjeta", "Pagos", FormMethod.Post))
+{
+<div class="row">
+    <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, "Banco a Consultar")
+                @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "banco-a-pagar", required = "required" })
+            </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group">
+            <label for="tarjetas">Tarjeta No.</label>
+            <select id="tarjetas" class="form-control" data-val="true" name="tarjetas" required><option value="">-- Seleccionar --</option></select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, "Banco para Pagar")
+                @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "banco-para-pagar", required = "required" })
+            </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group">
+            <label for="cuentas">Cuenta No.</label>
+            <select id="cuentas" class="form-control" data-val="true" name="cuentas" required><option value="">-- Seleccionar --</option></select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group">
+            <label for="monto">Monto</label>
+            <input type="text" id="monto" name="monto" required/>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+        <div class="form-group">
+            <label for="monto">Descripción</label>
+            <input type="text" id="descripcion" name="descripcion" required/>
+        </div>
+    </div>    
+</div>
+
+<input id="search" class="btn btn-info" type="submit" value="Pagar">
+
+<table id="resumen-pago" class="table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Q</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+}
+
+@section Scripts
+{    
+    <script>
+        (function() {
+            $('#banco-a-pagar').on('click', function () {
+                let codigoBanco = $(this).val();
+                if (codigoBanco) {
+                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Tarjetas/', function(tarjetas) {
+                        var options = '<option value="">-- Seleccionar --</option>';
+                        if (tarjetas) {
+                            window.tarjetas = tarjetas;
+                            tarjetas.forEach(function(tarjeta) {
+                                options += '<option value="' + tarjeta['numeroTarjeta'] + '">' + tarjeta['numeroTarjeta'] + ' - ' + tarjeta['nombreCuenta'] + '</option>';
+                            });
+                        }
+                        $('#tarjetas').html(options);
+                    });
+                } else {
+                    $('#tarjetas').html('<option value="">-- Seleccionar --</option>');
+                }
+            });
+            $('#banco-para-pagar').on('click', function () {
+                let codigoBanco = $(this).val();
+                if (codigoBanco) {
+                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Cuentas/', function(cuentas) {
+                        var options = '<option value="">-- Seleccionar --</option>';
+                        if (cuentas) {
+                            cuentas.forEach(function(cuenta) {
+                                options += '<option value="' + cuenta['numeroCuenta'] + '">' + cuenta['numeroCuenta'] + ' - ' + cuenta['nombreCuenta'] + '</option>';
+                            });
+                        }
+                        $('#cuentas').html(options);
+                    });
+                } else {
+                    $('#cuentas').html('<option value="">-- Seleccionar --</option>');
+                }
+            });            
+            
+            $('#tarjetas').on('click', function () {
+                let numeroTarjeta = $(this).val();
+                if (numeroTarjeta) {
+                    $('#resumen-pago tbody').remove();
+                    $('#resumen-pago').append('<tbody>');
+                    $("#resumen-pago").find('tbody')
+                        .append($('<tr>')
+                            .append($('<td>')
+                                .append('Pago Contado'))
+                            .append($('<td>')
+                                .append(window.tarjetas.find(function(tarjeta) { return tarjeta.numeroTarjeta === $('#tarjetas').val(); }).saldoTotal))
+                        )
+                        .append($('<tr>')
+                            .append($('<td>')
+                                .append('Monto a Pagar'))
+                            .append($('<td>')
+                                .append(window.tarjetas.find(function(tarjeta) { return tarjeta.numeroTarjeta === $('#tarjetas').val(); }).saldoTotal))
+                        );
+                } else {
+                    $('#resumen-pago tbody').remove();
+                }
+            });
+        })();
+    </script>
+}

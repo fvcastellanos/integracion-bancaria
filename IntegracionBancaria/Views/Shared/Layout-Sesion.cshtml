@@ -42,23 +42,21 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="AgregarBanco" asp-action="Index">Agregar Banco</a></li>
                     <li><a asp-area="" asp-controller="Inicio" asp-action="Consultas">Consultas</a></li>
+                    <li><a asp-area="" asp-controller="Inicio" asp-action="Pagos">Pagos</a></li>
                     <li><a asp-area="" asp-controller="Inicio" asp-action="Salir">Salir</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container body-content">
 
-        <header>
-            <img src="/images/header-mana1.jpg" class="img-responsive img-rounded" alt="Imagen encabezado" style="margin-top: 1em" />
-        </header>
-        
-        @RenderBody()
-        <hr />
-        <!--<footer>
-            <p>&copy; 2017 - Banca en Linea Integrada - UMG Ingenieria de Software</p>
-        </footer>-->
+    <div class="container">
+        <header><img src="/images/header-mana1.jpg" class="img-responsive img-rounded" alt="Imagen encabezado" style="margin-top: 1em" /></header>
+        <div class="content">@RenderBody()</div>
     </div>
+
+    <!--<footer>
+        <p>&copy; 2017 - Banca en Linea Integrada - UMG Ingenieria de Software</p>
+    </footer>-->
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

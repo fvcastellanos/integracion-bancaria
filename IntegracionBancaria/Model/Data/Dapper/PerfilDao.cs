@@ -49,7 +49,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
 
         public Perfil BuscarPorUsuario(string usr)
         {
-            var sql = "select * from bancos.perfil p " +
+            var sql = "select p.id, usuario_id as usuarioid, nombres, apellidos, correo from bancos.perfil p " +
                 "inner join bancos.usuario u on p.usuario_id = u.id " +
                 "where u.usuario = @Usuario";
 

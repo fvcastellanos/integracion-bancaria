@@ -16,6 +16,11 @@ namespace IntegracionBancaria.Controllers
             return View();
         }
 
+        public IActionResult Pagos()
+        {
+            return View();
+        }
+
         public IActionResult Salir()
         {
             HttpContext.Session.Clear();
