@@ -1,0 +1,39 @@
+@model IntegracionBancaria.Model.Domain.Documento
+
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+<h2>Consulta de documentos</h2>
+
+<div class="row">
+    <div class="col-md-offset-1 col-md-8">
+        <p>
+            <a href="/EstadoCuenta" class="btn btn-primary">Estado de Cuenta</a>
+        </p>
+        <table class="table table-striped">
+            <tr>
+                <td>Codigo</td>
+                <td>
+                    @Model.Codigo
+                </td>
+            </tr>
+            <tr>
+                <td>Nombre</td>
+                <td>
+                    @Model.Nombre
+                </td>
+            </tr>
+            <tr>
+                <td>Emision</td>
+                <td>
+                    @Model.Emision
+                </td>
+            </tr>
+        </table>
+
+        <img src="@Model.Ubicacion" class="img-responsive img-rounded" alt="Imagen encabezado" style="margin-top: 1em" />
+    </div>
+</div>
+
+

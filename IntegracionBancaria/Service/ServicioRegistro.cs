@@ -12,12 +12,18 @@ namespace IntegracionBancaria.Service
         private readonly ILogger _logger;
         private readonly PerfilDao _perfilDao;
         private readonly UsuarioDao _usuarioDao;
+        private readonly BancoDao _bancoDao;
 
-        public ServicioRegistro(PerfilDao perfilDao, UsuarioDao usuarioDao, ILogger<ServicioRegistro> logger)
+        private readonly ServicioCriptografia _servicioCriptografia;
+
+        public ServicioRegistro(PerfilDao perfilDao, UsuarioDao usuarioDao, ServicioCriptografia servicioCriptografia, 
+            BancoDao bancoDao, ILogger<ServicioRegistro> logger)
         {
             _logger = logger;
             _perfilDao = perfilDao;
             _usuarioDao = usuarioDao;
+            _bancoDao = bancoDao;
+            _servicioCriptografia = servicioCriptografia;
         }
 
         public Result<string, Perfil> RegistrarUsuario(RegistroViewModel registroViewModel)
@@ -25,6 +31,7 @@ namespace IntegracionBancaria.Service
             try
             {
                 var registro = registroViewModel.Registro;
+                registro.Clave = _servicioCriptografia.CodificarASha256(registro.Clave);
 
                 _logger.LogInformation("Registranto usuario: {0}", registro.Nombres);
 
@@ -36,13 +43,15 @@ namespace IntegracionBancaria.Service
                 // Creando usuario
                 var usuario = CrearUsuario(registro, _usuarioDao);
                 var perfil = CrearPerfil(usuario, registro, _perfilDao);
+                var banco = _bancoDao.ObtenerBancoPorCodigo(registro.Codigo);
 
-                _usuarioDao.AsociarBancoUsuario(registro.BancoId, usuario.Id, "demo-demo");
+                _usuarioDao.AsociarBancoUsuario(banco.Id, usuario.Id, "demo-demo");
 
                 return Result<string, Perfil>.ForSuccess(perfil);
             }
             catch (Exception ex)
             {
+                _logger.LogError("Exception: {0}", ex);
                 return Result<string, Perfil>.ForFailure(ex.Message);
             }
         }
@@ -60,6 +69,25 @@ namespace IntegracionBancaria.Service
 
             _logger.LogInformation("Usuario {0}, inexistente");
             return false;
+        }
+
+        public string AsociarBancoUsuario(string codigo, string usuario)
+        {
+            try 
+            {
+                _logger.LogInformation("Asociando usuario: {} al banco: {}", usuario, codigo);
+                var banco = _bancoDao.ObtenerBancoPorCodigo(codigo);
+                var objetoUsuario = _usuarioDao.BuscarPorUsuario(usuario);
+
+                _usuarioDao.AsociarBancoUsuario(banco.Id, objetoUsuario.Id, "demo-aplicacion");
+
+                return "";
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error al asociar usuario {} al banco {}, {}", usuario, codigo, ex);
+                return ex.Message;
+            }
         }
 
         private Usuario ConstruirUsuario(Registro registro)
