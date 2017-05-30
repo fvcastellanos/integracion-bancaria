@@ -1,0 +1,46 @@
+@model IntegracionBancaria.Model.Views.EstadoCuentaViewModel
+
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+@using (Html.BeginForm("ObtenerEstadoCuenta", "Consultas"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Codigo, "Banco")
+        @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Numero, "Cuenta")
+        @Html.DropDownListFor(model => model.Numero, new SelectList(Model.Cuentas, "Numero", "Numero"), "Seleccionar Cuenta", new { @class = "form-control", @id = "cuenta" })
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Consultar" />
+}
+
+<table id="resumen-cuentas" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+			<th>Numero</th>
+            <th>Moneda</th>
+            <th>Debito</th>
+            <th>Credito</th>
+            <th>Documento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var movimiento in Model.Movimientos)
+        {
+            <tr>
+                <td>@movimiento.Fecha</td>
+                <td>@movimiento.Numero</td>
+                <td>@movimiento.Moneda</td>
+                <td>@movimiento.Debito</td>
+                <td>@movimiento.Credito</td>
+                <td><a href="/ConsultaDocumentos/@movimiento.Documento">@movimiento.Documento</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
