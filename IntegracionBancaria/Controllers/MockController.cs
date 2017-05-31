@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace IntegracionBancaria.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("/api/[controller]")]
     public class MockController : Controller
     {
         private readonly PerfilDao _perfilDao;

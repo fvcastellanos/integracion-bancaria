@@ -2,7 +2,7 @@
     byte [] value;
     if (!Context.Session.TryGetValue("perfil", out value))
     {
-        Context.Response.Redirect("/Login");
+        Context.Response.Redirect("/ib/Login");
     }
 }
 
@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
         <link rel="stylesheet" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" asp-append-version="true" />
     </environment>
     @RenderSection("CustomCss", required: false)
@@ -51,7 +51,7 @@
     </nav>
 
     <div class="container">
-        <header><img src="/images/header-mana1.jpg" class="img-responsive img-rounded" alt="Imagen encabezado" style="margin-top: 1em" /></header>
+        <header><img src="/ib/images/header-mana1.jpg" class="img-responsive img-rounded" alt="Imagen encabezado" style="margin-top: 1em" /></header>
         <div class="content">@RenderBody()</div>
     </div>
 
@@ -76,8 +76,7 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
         <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-        <!--<script src="~/lib/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>-->
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)
