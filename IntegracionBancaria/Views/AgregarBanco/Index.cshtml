@@ -1,0 +1,47 @@
+@model IntegracionBancaria.Model.Views.AgregarBancoViewModel
+
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+<h2>Agregar Banco</h2>
+
+<p>@Model.PerfilUsuario.Nombres, seleccione el banco al cual quiere suscribirse</p>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-6">
+        @using (Html.BeginForm("Agregar", "AgregarBanco"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, "Banco")
+                @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
+            </div>
+
+            <span class="text-danger">@Html.ValidationSummary()</span>
+
+            <input type="submit" value="Agregar banco" class="btn btn-primary" />
+        }
+
+        <br>
+        <p>Bancos suscritos:</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Banco</th>
+                    <th>Pais</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var banco in Model.BancosSuscritos)
+                {
+                    <tr>
+                        <td>@banco.Codigo</td>
+                        <td>@banco.Nombre</td>
+                        <td>@banco.Pais</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
