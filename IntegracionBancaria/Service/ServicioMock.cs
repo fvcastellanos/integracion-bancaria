@@ -87,7 +87,7 @@ namespace IntegracionBancaria.Service
                 Codigo = codigo,
                 Nombre = codigo.Equals("CHK-303")?"Cheque":"Nota de Credito",
                 Emision = DateTime.Now,
-                Ubicacion = "/images/" + imagen
+                Ubicacion = "/ib/images/" + imagen
             };  
         }       
 
