@@ -16,7 +16,7 @@ namespace IntegracionBancaria
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseUrls("http://*:5000")
+                .UseUrls("http://127.0.0.1:5000/ib")
                 .Build();
 
             host.Run();
