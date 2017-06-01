@@ -12,6 +12,7 @@ namespace IntegracionBancaria.Service
         {
             var lista = new List<Cuenta>();
             lista.Add(new Cuenta { 
+                Numero = GenerarNumeroCuentasOTarjetasRandom(8),
                 NumeroCuenta = GenerarNumeroCuentasOTarjetasRandom(8),
                 NombreCuenta = perfil.Nombres + " " + perfil.Apellidos, 
                 Moneda = "GTQ",
@@ -28,6 +29,7 @@ namespace IntegracionBancaria.Service
         {
             var lista = new List<Tarjeta>();
             lista.Add(new Tarjeta { 
+                Numero = GenerarNumeroCuentasOTarjetasRandom(16),
                 NumeroTarjeta = GenerarNumeroCuentasOTarjetasRandom(16),
                 NombreCuenta = perfil.Nombres + " " + perfil.Apellidos, 
                 Moneda = "GTQ",
@@ -50,6 +52,17 @@ namespace IntegracionBancaria.Service
                 SaldoDisponible = float.Parse(GenerarNumeroCuentasOTarjetasRandom(4)),
                 SaldoEnReserva = float.Parse(GenerarNumeroCuentasOTarjetasRandom(3)),
                 SaldoFlotante = float.Parse(GenerarNumeroCuentasOTarjetasRandom(2)),
+                SaldoTotal = float.Parse(GenerarNumeroCuentasOTarjetasRandom(4)),
+            });
+            return lista;
+        }
+
+        public static IList<Servicio> ConsultarSaldoServicios(Perfil perfil, string codigoServicio)
+        {
+            var lista = new List<Servicio>();
+            lista.Add(new Servicio { 
+                Codigo = codigoServicio.ToUpper() + GenerarNumeroCuentasOTarjetasRandom(5),
+                Moneda = "GTQ",
                 SaldoTotal = float.Parse(GenerarNumeroCuentasOTarjetasRandom(4)),
             });
             return lista;

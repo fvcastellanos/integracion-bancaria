@@ -1,5 +1,4 @@
-
-SET search_path TO pg_catalog,public,bancos;
+SET search_path TO pg_catalog,public,bancos,bancos_cp;
 -- ddl-end --
 
 -- object: bancos.banco_seq | type: SEQUENCE --
@@ -294,13 +293,14 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 CREATE TABLE bancos.transaccion_detalle(
 	id serial NOT NULL,
 	transaccion_id bigint,
-	a_banco_id bigint NOT NULL,
-	a_cuenta varchar(50) NOT NULL,
-	de_banco_id bigint NOT NULL,
-	de_cuenta varchar(50) NOT NULL,
-	moneda varchar(5) NOT NULL,
-	monto float NOT NULL,
-	autorizacion varchar(200) NOT NULL,
+	a_banco_id bigint,
+	a_cuenta varchar(50),
+	de_banco_id bigint,
+	de_cuenta varchar(50),
+	servicio varchar(100),
+	moneda varchar(5),
+	monto float,
+	autorizacion varchar(200),
 	CONSTRAINT transaccion_detalle_pk PRIMARY KEY (id)
 
 );

@@ -1,0 +1,29 @@
+@model IntegracionBancaria.Model.Views.BitacoraViewModel
+
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+<h2>Bitacora de Transacciones</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+			<th>Operacion</th>
+            <th>Usuario</th>
+            <th>Descripcion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var movimiento in Model.Bitacoras)
+        {
+            <tr>
+                <td>@movimiento.Fecha</td>
+                <td>@movimiento.Operacion</td>
+                <td>@movimiento.Usuario</td>
+                <td>@movimiento.Descripcion</td>
+            </tr>
+        }
+    </tbody>
+</table>
