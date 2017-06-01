@@ -6,7 +6,7 @@
 
 <h2>Consulta de Saldos</h2>
 
-@using (Html.BeginForm("Saldos", "Consultas"))
+@using (Html.BeginForm("Index", "ConsultaSaldos"))
 {
     <div class="form-group">
         @Html.LabelFor(model => model.Codigo, "Banco")
@@ -39,7 +39,7 @@
                     $cuentasTable.dataTable().fnDestroy();
                     $cuentasTable.DataTable({
                         ajax: {
-                            url: "/api/Mock/Usuarios/@Model.Usuario/Bancos/" + bancoId + "/Cuentas/",
+                            url: "/ib/api/Mock/Usuarios/@Model.Usuario/Bancos/" + bancoId + "/Cuentas/",
                             dataSrc: ""
                         },
                         columns: [

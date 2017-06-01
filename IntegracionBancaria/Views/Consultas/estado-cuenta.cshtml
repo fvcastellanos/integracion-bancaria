@@ -39,7 +39,7 @@
                 <td>@movimiento.Moneda</td>
                 <td>@movimiento.Debito</td>
                 <td>@movimiento.Credito</td>
-                <td><a href="/ConsultaDocumentos/@movimiento.Documento">@movimiento.Documento</a></td>
+                <td><a href='@Url.Action("Index", "ConsultaDocumentos", new { documento = movimiento.Documento })'>@movimiento.Documento</a></td>
             </tr>
         }
     </tbody>

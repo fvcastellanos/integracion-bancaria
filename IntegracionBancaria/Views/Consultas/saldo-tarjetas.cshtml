@@ -1,0 +1,39 @@
+@model IntegracionBancaria.Model.Views.ConsultaTarjetasViewModel
+
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+@using (Html.BeginForm("ConsultarSaldoTarjetas", "Consultas"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Codigo, "Banco")
+        @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "Seleccionar Banco", new { @class = "form-control", @id = "banco" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Numero, "Numero Tarjeta")
+        @Html.DropDownListFor(model => model.Numero, new SelectList(Model.Tarjetas, "Numero", "Numero"), "Seleccionar Tarjeta", new { @class = "form-control", @id = "cuenta" })
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Consultar" />
+}
+
+<table id="resumen-cuentas" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+			<th>Numero</th>
+            <th>Moneda</th>
+            <th>Saldo Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var tarjeta in Model.SaldoTarjetas)
+        {
+            <tr>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>

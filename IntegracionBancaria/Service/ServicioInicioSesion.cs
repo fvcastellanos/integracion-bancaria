@@ -43,7 +43,7 @@ namespace IntegracionBancaria.Service
             _logger.LogInformation("Validando credenciales del usuario: {0}", usuario);
             var usr = _usuarioDao.BuscarPorUsuario(usuario);
             var claveCifrada = _servicioCriptografia.CodificarASha256(clave);
-            if (usr.Clave.Equals(claveCifrada))
+            if ((usr != null) && (usr.Clave.Equals(claveCifrada)))
             {
                 _logger.LogInformation("Usuario {0}, valido", usuario);
                 return usr;
