@@ -1,6 +1,10 @@
 @model IntegracionBancaria.Model.Views.PagoViewModel
 
-<h1>Pago de Préstamo</h1>
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+<h2>Pago de Préstamo</h2>
 
 @using (Html.BeginForm("PagarPrestamo", "Pagos", FormMethod.Post))
 {
@@ -69,7 +73,7 @@
             $('#banco-a-pagar').on('click', function () {
                 let codigoBanco = $(this).val();
                 if (codigoBanco) {
-                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Prestamos/', function(prestamos) {
+                    $.getJSON('/ib/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Prestamos/', function(prestamos) {
                         var options = '<option value="">-- Seleccionar --</option>';
                         if (prestamos) {
                             window.prestamos = prestamos;
@@ -86,7 +90,7 @@
             $('#banco-para-pagar').on('click', function () {
                 let codigoBanco = $(this).val();
                 if (codigoBanco) {
-                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Cuentas/', function(cuentas) {
+                    $.getJSON('/ib/api/Mock/Usuarios/@Model.Usuario/Bancos/' + codigoBanco + '/Cuentas/', function(cuentas) {
                         var options = '<option value="">-- Seleccionar --</option>';
                         if (cuentas) {
                             cuentas.forEach(function(cuenta) {

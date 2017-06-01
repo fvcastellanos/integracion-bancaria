@@ -13,9 +13,11 @@ namespace IntegracionBancaria.Model.Views
         public IList<Movimiento> Movimientos { get; set; }
 
         [Required]
+        [MinLength(1)]
         public string Codigo { get; set; }
 
         [Required]
+        [MinLength(1)]
         public string Numero { get; set; }
     }
 }

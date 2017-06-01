@@ -24,7 +24,7 @@ namespace IntegracionBancaria.Controllers
         public IActionResult Salir()
         {
             HttpContext.Session.Clear();
-            return Redirect("/");
+            return RedirectToAction("Index");
         }
     }
 }

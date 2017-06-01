@@ -100,9 +100,28 @@ namespace IntegracionBancaria.Service
                 Codigo = codigo,
                 Nombre = codigo.Equals("CHK-303")?"Cheque":"Nota de Credito",
                 Emision = DateTime.Now,
-                Ubicacion = "/images/" + imagen
+                Ubicacion = "/ib/images/" + imagen
             };  
         }       
+
+        public static IList<Cuenta> ConstruirListadoCuentas(Perfil perfil)
+        {
+            var cuentas = new List<Cuenta>();
+            cuentas.Add(new Cuenta() {
+                Numero = "GTQ - 4342343-K",
+                NombreCuenta = perfil.Nombres + " " + perfil.Apellidos,
+                Moneda = "GTQ"
+            });
+
+            cuentas.Add(new Cuenta(){
+                Numero = "USD - 939198-987-4224",
+                NombreCuenta = perfil.Nombres + " " + perfil.Apellidos,
+                Moneda = "USD"
+            });
+
+            return cuentas;
+        }
+
 
         private static string GenerarNumeroCuentasOTarjetasRandom(long length)
         {
