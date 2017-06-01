@@ -78,7 +78,7 @@
             $('#servicio-a-pagar').on('click', function () {
                 let codigoServicio = $(this).val();
                 if (codigoServicio) {
-                    $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Servicios/' + codigoServicio, function(servicios) {
+                    $.getJSON('/ib/api/Mock/Usuarios/@Model.Usuario/Servicios/' + codigoServicio, function(servicios) {
                         var options = '<option value="">-- Seleccionar --</option>';
                         if (servicios) {
                             window.servicios = servicios;
@@ -97,7 +97,7 @@
                 let codigo = $(this).val();
                 if (codigo === '1') {
                     if (codigo) {
-                        $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + $('#banco-para-pagar').val() + '/Tarjetas', function(tarjetas) {
+                        $.getJSON('/ib/api/Mock/Usuarios/@Model.Usuario/Bancos/' + $('#banco-para-pagar').val() + '/Tarjetas', function(tarjetas) {
                             var options = '<option value="">-- Seleccionar --</option>';
                             if (tarjetas) {
                                 window.tarjetas = tarjetas;
@@ -112,7 +112,7 @@
                     }
                 } else if (codigo === '2') {
                     if (codigo) {
-                        $.getJSON('/api/Mock/Usuarios/@Model.Usuario/Bancos/' + $('#banco-para-pagar').val() + '/Cuentas', function(cuentas) {
+                        $.getJSON('/ib/api/Mock/Usuarios/@Model.Usuario/Bancos/' + $('#banco-para-pagar').val() + '/Cuentas', function(cuentas) {
                             var options = '<option value="">-- Seleccionar --</option>';
                             if (cuentas) {
                                 window.cuentas = cuentas;
