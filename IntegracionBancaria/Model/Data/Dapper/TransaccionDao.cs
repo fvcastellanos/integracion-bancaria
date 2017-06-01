@@ -37,8 +37,8 @@ namespace IntegracionBancaria.Model.Data.Dapper
             long id;
             using (IDbConnection db = GetConnection())
             {
-                var sql = "INSERT INTO bancos.transaccion_detalle (id, transaccion_id, a_banco_id, a_cuenta, de_banco_id, de_cuenta, moneda, monto, autorizacion) " +
-                          "VALUES (@Id, @TransaccionId, @ABancoId, @ACuenta, @DeBancoId, @DeCuenta, @Moneda, @Monto, @Autorizacion) ";
+                var sql = "INSERT INTO bancos.transaccion_detalle (id, transaccion_id, a_banco_id, a_cuenta, de_banco_id, de_cuenta, moneda, monto, servicio, autorizacion) " +
+                          "VALUES (@Id, @TransaccionId, @ABancoId, @ACuenta, @DeBancoId, @DeCuenta, @Moneda, @Monto, @Servicio, @Autorizacion) ";
 
                 id = GetNexSequenceNumber(db, "bancos.transaccion_detalle_id_seq");
 
@@ -51,6 +51,7 @@ namespace IntegracionBancaria.Model.Data.Dapper
                                         DeCuenta = transaccionDetalle.DeCuenta,
                                         Moneda = transaccionDetalle.Moneda,
                                         Monto = transaccionDetalle.Monto,
+                                        Servicio = transaccionDetalle.Servicio,
                                         Autorizacion = transaccionDetalle.Autorizacion                    
                                     }
                             );

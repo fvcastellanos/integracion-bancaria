@@ -1,6 +1,10 @@
 @model IntegracionBancaria.Model.Views.PagoViewModel
 
-<h1>Pago de Tarjeta de Crédito</h1>
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+<h2>Pago de Tarjeta de Crédito</h2>
 
 @using (Html.BeginForm("PagarTarjeta", "Pagos", FormMethod.Post))
 {

@@ -13,6 +13,7 @@ namespace IntegracionBancaria.Model.Domain
         public string DeCuenta { get; }
         public string Moneda { get; }
         public double Monto { get; }
+        public string Servicio { get; }
         public string Autorizacion { get; }
         public TransaccionDetalle(long transaccionId,
                                   long aBancoId,
@@ -21,6 +22,7 @@ namespace IntegracionBancaria.Model.Domain
                                   string deCuenta,
                                   string moneda,
                                   double monto,
+                                  string servicio,
                                   string autorizacion)
         {
             TransaccionId = transaccionId;
@@ -30,6 +32,7 @@ namespace IntegracionBancaria.Model.Domain
             DeCuenta = deCuenta;
             Moneda = moneda;
             Monto = monto;
+            Servicio = servicio;
             Autorizacion = autorizacion;
         }
     }

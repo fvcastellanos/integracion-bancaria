@@ -53,6 +53,7 @@ namespace IntegracionBancaria
             services.AddSingleton<PerfilDao, PerfilDao>();
             services.AddSingleton<UsuarioDao, UsuarioDao>();
             services.AddSingleton<TransaccionDao, TransaccionDao>();
+            services.AddSingleton<BitacoraDao, BitacoraDao>();
 
             // Servicios
             services.AddSingleton<ServicioCriptografia, ServicioCriptografia>();

@@ -8,4 +8,5 @@ INSERT INTO bancos.operacion (nombre)
     VALUES 
         ('PAGO_TARJETA_CREDITO'),
         ('PAGO_PRESTAMO'),
-        ('CONSULTA_SALDOS');
+        ('CONSULTA_SALDOS'),
+        ('PAGO_SERVICIOS');

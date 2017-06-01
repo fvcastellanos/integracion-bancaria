@@ -4,7 +4,9 @@
     Layout = "../Shared/Layout-Sesion";
 }
 
-@using (Html.BeginForm("Obtener", "EstadoCuenta"))
+<h2>Estado de Cuenta</h2>
+
+@using (Html.BeginForm("ObtenerEstadoCuenta", "Consultas"))
 {
     <div class="form-group">
         @Html.LabelFor(model => model.Codigo, "Banco")
