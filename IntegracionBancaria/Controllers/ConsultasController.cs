@@ -106,7 +106,8 @@ namespace IntegracionBancaria.Controllers
             var tarjetas = ServicioMock.ConstruirListadoCuentas(perfil);
             var model = new ConsultaTarjetasViewModel() {
                 Bancos = bancos,
-                Tarjetas = tarjetas
+                Tarjetas = tarjetas,
+                SaldoTarjetas = new List<IntegracionBancaria.Model.Domain.Mock.Tarjeta>()
             };
 
             return model;

@@ -4,6 +4,8 @@
     Layout = "../Shared/Layout-Sesion";
 }
 
+<h2>Saldo de Tarjetas de Credito</h2>
+
 @using (Html.BeginForm("ConsultarSaldoTarjetas", "Consultas"))
 {
     <div class="form-group">
@@ -32,7 +34,10 @@
         @foreach(var tarjeta in Model.SaldoTarjetas)
         {
             <tr>
-                <td></td>
+                <td>@tarjeta.NombreCuenta</td>
+                <td>@tarjeta.NumeroTarjeta</td>
+                <td>@tarjeta.Moneda</td>
+                <td>@tarjeta.SaldoTotal</td>
             </tr>
         }
     </tbody>
