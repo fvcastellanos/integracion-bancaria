@@ -1,71 +1,74 @@
 @model IntegracionBancaria.Model.Views.PagoViewModel
 
-<h1>Pago de Préstamo</h1>
+@{
+    Layout = "../Shared/Layout-Sesion";
+}
+
+<h2>Pago de Servicios</h2>
 
 @using (Html.BeginForm("PagarServicio", "Pagos", FormMethod.Post))
 {
-<div class="row">
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Codigo, "Tipo de Servicio")
-            @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Servicios, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "servicio-a-pagar", required = "required" })
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, "Tipo de Servicio")
+                @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Servicios, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "servicio-a-pagar", required = "required" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                <label for="servicios">Servicio</label>
+                <select id="servicios" class="form-control" data-val="true" name="servicios" required><option value="">-- Seleccionar --</option></select>
+            </div>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, "Banco para Pagar")
+                @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "banco-para-pagar", @name = "banco-para-pagar", required = "required" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Codigo, "Tipo Documento")
+                @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.TipoDocumentos, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "documento-para-pagar", required = "required" })
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                <label for="cuentas">Cuenta No.</label>
+                <select id="cuentas" class="form-control" data-val="true" name="cuentas" required><option value="">-- Seleccionar --</option></select>
+            </div>
         </div>
     </div>
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            <label for="servicios">Servicio</label>
-            <select id="servicios" class="form-control" data-val="true" name="servicios" required><option value="">-- Seleccionar --</option></select>
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                <label for="monto">Monto</label>
+                <input type="text" id="monto" name="monto" required/>
+            </div>
         </div>
-    </div>    
-</div>
-<div class="row">
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Codigo, "Banco para Pagar")
-            @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.Bancos, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "banco-para-pagar", @name = "banco-para-pagar", required = "required" })
-        </div>
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                <label for="monto">Descripción</label>
+                <input type="text" id="descripcion" name="descripcion" required/>
+            </div>
+        </div>    
     </div>
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            @Html.LabelFor(model => model.Codigo, "Tipo Documento")
-            @Html.DropDownListFor(model => model.Codigo, new SelectList(Model.TipoDocumentos, "Codigo", "Nombre"), "-- Seleccionar --", new { @class = "form-control", @id = "documento-para-pagar", required = "required" })
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            <label for="cuentas">Cuenta No.</label>
-            <select id="cuentas" class="form-control" data-val="true" name="cuentas" required><option value="">-- Seleccionar --</option></select>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            <label for="monto">Monto</label>
-            <input type="text" id="monto" name="monto" required/>
-        </div>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-        <div class="form-group">
-            <label for="monto">Descripción</label>
-            <input type="text" id="descripcion" name="descripcion" required/>
-        </div>
-    </div>    
-</div>
 
-<input id="search" class="btn btn-info" type="submit" value="Pagar">
+    <input id="search" class="btn btn-info" type="submit" value="Pagar">
 
-<table id="resumen-pago" class="table table-striped">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Q</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
+    <table id="resumen-pago" class="table table-striped">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Q</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 }
 
 @section Scripts
