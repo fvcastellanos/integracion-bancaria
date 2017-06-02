@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/fvcastellanos/integracion-bancaria.svg?branch=master)](https://travis-ci.org/fvcastellanos/integracion-bancaria)
+
 # Integracion bancaria
 
 ## Proyecto UMG Ingenieria de Software 
